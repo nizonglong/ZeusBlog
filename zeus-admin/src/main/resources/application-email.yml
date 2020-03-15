@@ -1,0 +1,23 @@
+spring:
+  #邮箱配置
+  mail:
+    host: smtp.163.com
+    username: nizonglong@163.com
+    #163邮箱的授权码
+    password: NZLwenlong111
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+#设置一个邮件发送人
+lance:
+  mail:
+    sender: nizonglong@163.com
+
+
+

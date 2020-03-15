@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="zeus-service" />
+        <module name="zeus-server" />
+        <module name="zeus-admin" />
+        <module name="zeus-mapper" />
+        <module name="zeus-common" />
+        <module name="zeus-pojo" />
+        <module name="zeus-sso" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="zeus-admin" target="1.8" />
+      <module name="zeus-common" target="1.8" />
+      <module name="zeus-manager" target="1.8" />
+      <module name="zeus-mapper" target="1.8" />
+      <module name="zeus-parent" target="1.8" />
+      <module name="zeus-pojo" target="1.8" />
+      <module name="zeus-server" target="1.8" />
+      <module name="zeus-service" target="1.8" />
+      <module name="zeus-sso" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="zeus-admin" options="-parameters" />
+      <module name="zeus-common" options="-parameters" />
+      <module name="zeus-mapper" options="-parameters" />
+      <module name="zeus-parent" options="" />
+      <module name="zeus-pojo" options="-parameters" />
+      <module name="zeus-server" options="-parameters" />
+      <module name="zeus-service" options="-parameters" />
+      <module name="zeus-sso" options="-parameters" />
+    </option>
+  </component>
+</project>

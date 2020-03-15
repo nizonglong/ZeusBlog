@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zeus-sso:war">
+    <output-path>$PROJECT_DIR$/zeus-sso/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zeus-sso</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="sso-0.1.war">
+      <element id="artifact" artifact-name="zeus-sso:war exploded" />
+    </root>
+  </artifact>
+</component>

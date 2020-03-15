@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/zeus-admin/zeus-admin.iml" filepath="$PROJECT_DIR$/zeus-admin/zeus-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-common/zeus-common.iml" filepath="$PROJECT_DIR$/zeus-common/zeus-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-manager/zeus-manager.iml" filepath="$PROJECT_DIR$/zeus-manager/zeus-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-manager/zeus-mapper/zeus-mapper.iml" filepath="$PROJECT_DIR$/zeus-manager/zeus-mapper/zeus-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-parent/zeus-parent.iml" filepath="$PROJECT_DIR$/zeus-parent/zeus-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-manager/zeus-pojo/zeus-pojo.iml" filepath="$PROJECT_DIR$/zeus-manager/zeus-pojo/zeus-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-server/zeus-server.iml" filepath="$PROJECT_DIR$/zeus-server/zeus-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-manager/zeus-service/zeus-service.iml" filepath="$PROJECT_DIR$/zeus-manager/zeus-service/zeus-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zeus-sso/zeus-sso.iml" filepath="$PROJECT_DIR$/zeus-sso/zeus-sso.iml" />
+    </modules>
+  </component>
+</project>

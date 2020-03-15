@@ -1,0 +1,52 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    include: mysql,redis,email
+
+
+  # 配置静态资源文件路径
+  resources:
+    static-locations: ["/templates/","/resources/","/static/","/public/"]
+
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: utf-8
+    mode: html
+    prefix: classpath:/templates/
+    suffix: .html
+
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 100MB
+
+  mvc:
+    static-path-pattern: /**
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+logging:
+  level:
+    com.neo.mapper: DEBUG
+
+pagehelper:
+  helper-dialect: mysql
+  params: count=countmysql
+  reasonable: true
+  support-methods-arguments: true
+
+# 上传路径
+## 头像上传路径
+upload:
+  path:
+    portrait: G:/IDEA/ZeusBlog/zeus-server/src/main/resources/static/upload/portrait
+    ## 博客上传路径
+    blog: G:/data

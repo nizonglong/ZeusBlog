@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="../admin/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../admin/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <script src="../admin/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="../admin/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="../admin/css/amazeui.datatables.min.css"/>
+    <link rel="stylesheet" href="../admin/css/app.css">
+    <script src="../admin/js/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../editormd/css/editormd.min.css"/>
+    <!-- 页面解析markdown为HTML显示需要的css -->
+    <link rel="stylesheet" href="../editormd/css/editormd.preview.min.css"/>
+
+</head>
+
+<body data-type="widgets">
+<script src="../admin/js/theme.js"></script>
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    <header>
+        <!-- logo -->
+        <div class="am-fl tpl-header-logo">
+            <a href="javascript:;"><img src="../admin/img/logo.png" alt=""></a>
+        </div>
+        <!-- 右侧内容 -->
+        <div class="tpl-header-fluid">
+            <!-- 侧边切换 -->
+            <div class="am-fl tpl-header-switch-button am-icon-list">
+                    <span>
+
+                </span>
+            </div>
+            <!-- 搜索 -->
+            <div class="am-fl tpl-header-search">
+                <form class="tpl-header-search-form" action="javascript:;">
+                    <button class="tpl-header-search-btn am-icon-search"></button>
+                    <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
+                </form>
+            </div>
+            <!-- 其它功能-->
+            <div class="am-fr tpl-header-navbar">
+                <ul>
+
+                    <!-- 退出 -->
+                    <li class="am-text-sm">
+                        <a href="javascript:;">
+                            <span class="am-icon-sign-out"></span> 退出
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+    <!-- 风格切换 -->
+    <div class="tpl-skiner">
+        <div class="tpl-skiner-toggle am-icon-cog">
+        </div>
+        <div class="tpl-skiner-content">
+            <div class="tpl-skiner-content-title">
+                选择主题
+            </div>
+            <div class="tpl-skiner-content-bar">
+                <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                <span class="skiner-color skiner-black" data-color="theme-black"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 侧边导航栏 -->
+    <div class="left-sidebar">
+        <!-- 用户信息 -->
+        <div class="tpl-sidebar-user-panel">
+            <div class="tpl-user-panel-slide-toggleable">
+                <div class="tpl-user-panel-profile-picture">
+                    <img src="../admin/img/user04.png" alt="">
+                </div>
+                <span class="user-panel-logged-in-text">
+              <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+              禁言小张
+          </span>
+                <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
+            </div>
+        </div>
+
+        <!-- 菜单 -->
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
+            <li class="sidebar-nav-link">
+                <a href="index.html">
+                    <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="tables.html">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="calendar.html">
+                    <i class="am-icon-calendar sidebar-nav-link-logo"></i> 日历
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="article_edit.html" class="active">
+                    <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 表单
+
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="chart.html">
+                    <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
+
+                </a>
+            </li>
+
+            <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
+            <li class="sidebar-nav-link">
+                <a href="javascript:;" class="sidebar-nav-sub-title">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
+                    <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                </a>
+                <ul class="sidebar-nav sidebar-nav-sub">
+                    <li class="sidebar-nav-link">
+                        <a href="table-list.html">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                        </a>
+                    </li>
+
+                    <li class="sidebar-nav-link">
+                        <a href="table-list-img.html">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="sign-up.html">
+                    <i class="am-icon-clone sidebar-nav-link-logo"></i> 注册
+                    <span class="am-badge am-badge-secondary sidebar-nav-link-logo-ico am-round am-fr am-margin-right-sm">6</span>
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="login.html">
+                    <i class="am-icon-key sidebar-nav-link-logo"></i> 登录
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="404.html">
+                    <i class="am-icon-tv sidebar-nav-link-logo"></i> 404错误
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="tpl-content-wrapper">
+
+        <div class="container-fluid am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 表单
+                        <small>Amaze UI</small>
+                    </div>
+                    <p class="page-header-description">Amaze UI 有许多不同的表格可用。</p>
+                </div>
+                <div class="am-u-lg-3 tpl-index-settings-button">
+                    <button type="button" class="page-header-button"><span class="am-icon-paint-brush"></span> 设置
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row-content am-cf">
+
+
+            <div class="row">
+
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl">边框表单</div>
+                            <div class="widget-function am-fr">
+                                <a href="javascript:;" class="am-icon-cog"></a>
+                            </div>
+                        </div>
+                        <div class="widget-body am-fr">
+
+                            <form id="myMDForm" class="am-form tpl-form-border-form tpl-form-border-br">
+                                <div class="am-form-group">
+                                    <label for="at-title" class="am-u-sm-3 am-form-label">标题 <span
+                                            class="tpl-form-line-small-title">Title</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" name="title" id="at-title"
+                                               placeholder="请输入标题文字">
+                                        <small>请填写标题文字10-20字左右。</small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <div id="myeditor">
+                                        <!-- 富文本编辑器 -->
+                                        <div id="test-editormd"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="../admin/js/amazeui.min.js"></script>
+<script src="../admin/js/amazeui.datatables.min.js"></script>
+<script src="../admin/js/dataTables.responsive.min.js"></script>
+<script src="../admin/js/app.js"></script>
+<script src="../admin/js/def-admin/article-list.js"></script>
+
+
+<script src="../admin/js/jquery.min.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../editormd/editormd.js"></script>
+
+<!-- 页面markdown解析成HTML需要的js -->
+<script src="../editormd/lib/marked.min.js"></script>
+<script src="../editormd/lib/prettify.min.js"></script>
+<script src="../editormd/lib/raphael.min.js"></script>
+<script src="../editormd/lib/underscore.min.js"></script>
+<script src="../editormd/lib/sequence-diagram.min.js"></script>
+<script src="../editormd/lib/flowchart.min.js"></script>
+<script src="../editormd/lib/jquery.flowchart.min.js"></script>
+
+<script type="text/javascript">
+    layui.use(['layer', 'jquery'], function () {
+        var layer = layui.layer
+            , $ = layui.jquery;
+
+        var testEditor;
+        testEditor = editormd("test-editormd", {
+            width: "100%",
+            height: 800,
+            path: '../editormd/lib/',
+            theme: "default",
+            previewTheme: "default",
+            editorTheme: "default",
+            //markdown : md,             // 初始化编辑区的内容
+            codeFold: true,
+            //syncScrolling : false,
+            saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+            searchReplace: true,
+            //watch : false,                // 关闭实时预览
+            htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+            //toolbar  : false,             //关闭工具栏
+            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+            emoji: true,
+            taskList: true,
+            tocm: true,         // Using [TOCM]
+            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart: true,             // 开启流程图支持，默认关闭
+            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "./php/upload.php", // 文件上传路径，返回值为图片加载的路径
+            onload: function () {
+                // 加载后富文本编辑器成功后的回调
+                console.log('onload', this);
+                //this.fullscreen();
+                //this.unwatch();
+                //this.watch().fullscreen();
+
+                //this.setMarkdown("#PHP");
+                //this.width("100%");
+                //this.height(480);
+                //this.resize("100%", 640);
+
+                // 异步请求md文件，用于编辑时的数据回显
+                // $.get('test.md', function (md) {
+                //     testEditor.setMarkdown(md);
+                // });
+            }
+        });
+
+        // 获取markdown源码
+        $('#getMarkdownContent').on('click', function () {
+            var content = testEditor.getMarkdown();
+            console.log(content);
+            MD.submitMD(content);
+        });
+
+    });
+</script>
+</body>
+
+</html>
