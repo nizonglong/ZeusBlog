@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @SpringBootApplication
-@ComponentScan("com.nzl")
 @MapperScan("com.nzl.dao")
 public class SsoApplication {
 

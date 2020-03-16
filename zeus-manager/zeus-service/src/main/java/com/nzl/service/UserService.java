@@ -1,8 +1,8 @@
 package com.nzl.service;
 
 
-import com.nzl.common.pojo.ZeusBlogResult;
-import com.nzl.pojo.User;
+import com.nzl.common.pojo.ZeusResponseBean;
+import com.nzl.model.pojo.User;
 import com.nzl.server.pojo.MailBean;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +25,7 @@ public interface UserService {
      * @param type    数据类型:手机号码、用户名、邮箱
      * @return ZeusBlogResult
      */
-    ZeusBlogResult checkData(String content, Integer type);
+    ZeusResponseBean checkData(String content, Integer type);
 
     /**
      * 修改个人信息时用于检测数据
@@ -34,7 +34,7 @@ public interface UserService {
      * @param type    数据类型:手机号码、用户名
      * @return ZeusBlogResult
      */
-    ZeusBlogResult checkUpdateData(String content, Integer type);
+    ZeusResponseBean checkUpdateData(String content, Integer type);
 
     /**
      * 发送激活邮件
@@ -43,7 +43,7 @@ public interface UserService {
      * @param request  http请求
      * @return ZeusBlogResult
      */
-    ZeusBlogResult sendActiveEmail(MailBean mailBean, HttpServletRequest request);
+    ZeusResponseBean sendActiveEmail(MailBean mailBean, HttpServletRequest request);
 
     /**
      * 创建用户
@@ -51,14 +51,14 @@ public interface UserService {
      * @param user 用户信息
      * @return ZeusBlogResult
      */
-    ZeusBlogResult createUser(User user);
+    ZeusResponseBean createUser(User user);
 
     /**
      * 更新用户头像
      * @param head 用户头像文件
      * @return ZeusBlogResult
      */
-    ZeusBlogResult updatePortrait(MultipartFile head);
+    ZeusResponseBean updatePortrait(MultipartFile head);
 
 
     /**
@@ -69,13 +69,6 @@ public interface UserService {
      */
     User getUserByEmail(String email);
 
-    /**
-     * 获取roles和permissions
-     *
-     * @param uid 用户id
-     * @return Map<String, MyObject>
-     */
-    Map<String, Object> getRolesAndPermissions(String uid);
 
     /**
      * 更新用户信息
@@ -84,23 +77,6 @@ public interface UserService {
      * @return int
      */
     int updateUser(User user);
-
-
-    /**
-     * 检测手机号
-     *
-     * @param phone
-     * @return
-     */
-    int countPhone(String phone);
-
-    /**
-     * 通过username查询用户所有信息
-     *
-     * @param username 用户名
-     * @return User
-     */
-    User queryUserByUsername(String username);
 
     /**
      * 通过用户id查询用户所有信息

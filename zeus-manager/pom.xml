@@ -17,7 +17,7 @@
 
 
     <modules>
-        <module>zeus-pojo</module>
+        <module>zeus-model</module>
         <module>zeus-mapper</module>
         <module>zeus-service</module>
     </modules>
@@ -25,15 +25,21 @@
 
     <build>
         <plugins>
+            <!-- 指定JDK编译版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <compilerVersion>1.8</compilerVersion>
-                    <source>1.8</source>
-                    <encoding>UTF-8</encoding>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <!-- JavaDoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
             </plugin>
         </plugins>
     </build>

@@ -1,6 +1,6 @@
 package com.nzl.server.service.impl;
 
-import com.nzl.common.pojo.ZeusBlogResult;
+import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.server.pojo.MailBean;
 import com.nzl.server.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +31,8 @@ public class EmailServiceImpl implements EmailService {
     private String mailSender;
 
     @Override
-    public ZeusBlogResult sendSimpleMail(MailBean mailBean) throws Exception {
-        ZeusBlogResult result;
+    public ZeusResponseBean sendSimpleMail(MailBean mailBean) throws Exception {
+        ZeusResponseBean result;
         try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             //邮件发送人
@@ -45,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
             simpleMailMessage.setText(mailBean.getContent());
             javaMailSender.send(simpleMailMessage);
 
-            result = ZeusBlogResult.ok("邮件发送成功");
+            result = ZeusResponseBean.ok("邮件发送成功");
         } catch (Exception e) {
             log.error(MAIL_SEND_FAILED, e.getMessage());
             e.printStackTrace();

@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    include: mysql,redis,email
+    include: mysql,redis,email,config
 
 
   # 配置静态资源文件路径
@@ -27,6 +27,7 @@ spring:
 
   mvc:
     static-path-pattern: /**
+    throw-exception-if-no-handler-found: true
 
 mybatis:
   configuration:

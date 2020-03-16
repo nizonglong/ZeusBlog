@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzl.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.nzl.model.pojo.Role">
+
+        <id column="role_id" jdbcType="TINYINT" property="roleId"/>
+        <result column="available" jdbcType="INTEGER" property="available"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    role_id, available, description, role, gmt_create, gmt_modified
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Byte" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from role
+        where role_id = #{roleId,jdbcType=TINYINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
+    delete from role
+    where role_id = #{roleId,jdbcType=TINYINT}
+  </delete>
+    <insert id="insert" parameterType="com.nzl.model.pojo.Role">
+    insert into role (role_id, available, description, 
+      role, gmt_create, gmt_modified
+      )
+    values (#{roleId,jdbcType=TINYINT}, #{available,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.nzl.model.pojo.Role">
+        insert into role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="available != null">
+                available,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=TINYINT},
+            </if>
+            <if test="available != null">
+                #{available,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nzl.model.pojo.Role">
+
+        update role
+        <set>
+            <if test="available != null">
+                available = #{available,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                role = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=TINYINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nzl.model.pojo.Role">
+    
+    update role
+    set available = #{available,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=TINYINT}
+  </update>
+
+    <select id="findRoleByUser" parameterType="com.nzl.model.dto.RoleDto" resultMap="BaseResultMap">
+        SELECT
+        r.role_id as id,
+        r.role as role
+        FROM
+        user u
+        LEFT JOIN user_role ur ON u.uid = ur.uid
+        LEFT JOIN role r ON r.role_id = ur.role_id
+        <where>
+            <if test="username != null and username != '' ">
+                AND u.username #{username}
+            </if>
+        </where>
+  </select>
+
+
+</mapper>

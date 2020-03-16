@@ -2,7 +2,7 @@
 package com.nzl.sso.service.impl;
 
 import com.nzl.dao.UserMapper;
-import com.nzl.pojo.User;
+import com.nzl.model.pojo.User;
 import com.nzl.sso.service.SsoUserService;
 import org.springframework.stereotype.Service;
 

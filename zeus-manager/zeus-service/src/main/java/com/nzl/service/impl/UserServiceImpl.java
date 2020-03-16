@@ -1,12 +1,12 @@
 package com.nzl.service.impl;
 
 
-import com.nzl.common.pojo.ZeusBlogResult;
+import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.VerifyUtil;
 import com.nzl.dao.PermissionMapper;
 import com.nzl.dao.RoleMapper;
 import com.nzl.dao.UserMapper;
-import com.nzl.pojo.User;
+import com.nzl.model.pojo.User;
 import com.nzl.server.pojo.MailBean;
 import com.nzl.server.service.EmailService;
 import com.nzl.server.service.FileService;
@@ -73,50 +73,50 @@ public class UserServiceImpl implements UserService {
     /*--------------------具体实现方法--------------------*/
 
     @Override
-    public ZeusBlogResult checkData(String content, Integer type) {
+    public ZeusResponseBean checkData(String content, Integer type) {
         int count;
         // 对数据进行校验：1、2、3分别代表username、phone、email
         // 用户名校验
         if (1 == type) {
-            count = userMapper.dynamicQuery("username", content);
+            count = userMapper.dynamicCountQuery("username", content);
             // 电话校验
         } else if (2 == type) {
-            count = userMapper.dynamicQuery("phone", content);
+            count = userMapper.dynamicCountQuery("phone", content);
             // email校验
         } else {
-            count = userMapper.dynamicQuery("email", content);
+            count = userMapper.dynamicCountQuery("email", content);
         }
 
         // 用于用户注册，数据库无对应的值代表正常可以注册，否则就是不能注册
         if (0 == count) {
-            return ZeusBlogResult.ok(true);
+            return ZeusResponseBean.ok(true);
         }
 
-        return ZeusBlogResult.build(400, "信息重复，无法注册");
+        return ZeusResponseBean.build(400, "信息重复，无法注册");
     }
 
     @Override
-    public ZeusBlogResult checkUpdateData(String content, Integer type) {
+    public ZeusResponseBean checkUpdateData(String content, Integer type) {
         int count;
         // 对数据进行校验：1、2、3分别代表username、phone、email
         if (1 == type) {
             // 用户名校验
-            count = userMapper.dynamicQuery("username", content);
-            return count <= 1 ? ZeusBlogResult.ok() :
-                    ZeusBlogResult.build(400, "用户名重复");
+            count = userMapper.dynamicCountQuery("username", content);
+            return count <= 1 ? ZeusResponseBean.ok() :
+                    ZeusResponseBean.build(400, "用户名重复");
         } else if (2 == type) {
             // 电话校验
-            count = userMapper.dynamicQuery("phone", content);
-            return count <= 1 ? ZeusBlogResult.ok() :
-                    ZeusBlogResult.build(400, "手机号重复");
+            count = userMapper.dynamicCountQuery("phone", content);
+            return count <= 1 ? ZeusResponseBean.ok() :
+                    ZeusResponseBean.build(400, "手机号重复");
         }
 
-        return ZeusBlogResult.ok();
+        return ZeusResponseBean.ok();
     }
 
     @Override
-    public ZeusBlogResult sendActiveEmail(MailBean mailBean, HttpServletRequest request) {
-        ZeusBlogResult result = null;
+    public ZeusResponseBean sendActiveEmail(MailBean mailBean, HttpServletRequest request) {
+        ZeusResponseBean result = null;
         /*
          * 设置验证码
          */
@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
             result = emailService.sendSimpleMail(mailBean);
         } catch (Exception e) {
             e.printStackTrace();
-            return ZeusBlogResult.build(500, e.getMessage());
+            return ZeusResponseBean.build(500, e.getMessage());
         }
 
         return result;
@@ -143,14 +143,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ZeusBlogResult createUser(User user) {
+    public ZeusResponseBean createUser(User user) {
         userMapper.insertSelective(user);
-        return ZeusBlogResult.ok();
+        return ZeusResponseBean.ok();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ZeusBlogResult updatePortrait(MultipartFile head) {
+    public ZeusResponseBean updatePortrait(MultipartFile head) {
         User user = redisUtil.getUser();
 
         String newHead = fileService.uploadOne(head, UPLOAD_PATH_PORTRAIT);
@@ -169,11 +169,11 @@ public class UserServiceImpl implements UserService {
                     redisUtil.set(user.getUid(), user, SSO_SESSION_EXPIRE);
 
                     userMapper.updateByPrimaryKeySelective(user);
-                    return ZeusBlogResult.ok();
+                    return ZeusResponseBean.ok();
                 } else if (isDelete == 0) {
-                    return ZeusBlogResult.build(400, "原始头像删除失败");
+                    return ZeusResponseBean.build(400, "原始头像删除失败");
                 } else {
-                    return ZeusBlogResult.build(400, "文件不存在");
+                    return ZeusResponseBean.build(400, "文件不存在");
                 }
             } else {
                 // 新上传了新头像则直接更新数据库
@@ -181,37 +181,18 @@ public class UserServiceImpl implements UserService {
                         + "/" + DEFAULT_LOCAL_PORTAL_DIR + "/" + newHead);
                 redisUtil.set(user.getUid(), user,SSO_SESSION_EXPIRE);
                 userMapper.updateByPrimaryKeySelective(user);
-                return ZeusBlogResult.ok();
+                return ZeusResponseBean.ok();
             }
 
         }
 
-        return ZeusBlogResult.build(400, "头像更新失败");
+        return ZeusResponseBean.build(400, "头像更新失败");
     }
 
 
     @Override
     public User getUserByEmail(String email) {
         return userMapper.getUserByEmail(email);
-    }
-
-    @Override
-    public Map<String, Object> getRolesAndPermissions(String uid) {
-        Set<String> permissions = new HashSet<>();
-
-        Set<String> roles = new HashSet<>(roleMapper.listUserRoles(uid));
-
-        for (String role : roles) {
-            Set<String> ps = permissionMapper.listRolePermission(role);
-            permissions.addAll(ps);
-        }
-
-        Map<String, Object> map = new HashMap<>(2);
-
-
-        map.put("allRoles", roles);
-        map.put("allPermissions", permissions);
-        return map;
     }
 
     @Override
@@ -223,17 +204,6 @@ public class UserServiceImpl implements UserService {
         redisUtil.set(user.getUid(), newUser,SSO_SESSION_EXPIRE);
 
         return update;
-    }
-
-
-    @Override
-    public int countPhone(String phone) {
-        return userMapper.countPhone(phone);
-    }
-
-    @Override
-    public User queryUserByUsername(String username) {
-        return userMapper.queryUserByUsername(username);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.nzl.server.service;
 
-import com.nzl.common.pojo.ZeusBlogResult;
+import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.server.pojo.MailBean;
 
 /**
@@ -11,5 +11,5 @@ import com.nzl.server.pojo.MailBean;
  * @version: 1.0
  */
 public interface EmailService {
-    ZeusBlogResult sendSimpleMail(MailBean mailBean) throws Exception;
+    ZeusResponseBean sendSimpleMail(MailBean mailBean) throws Exception;
 }

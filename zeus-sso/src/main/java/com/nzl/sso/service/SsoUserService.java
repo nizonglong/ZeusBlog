@@ -6,7 +6,7 @@
  **/
 package com.nzl.sso.service;
 
-import com.nzl.pojo.User;
+import com.nzl.model.pojo.User;
 
 public interface SsoUserService {
     User getUser(String username);

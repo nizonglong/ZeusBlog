@@ -1,6 +1,6 @@
 package com.nzl.server.util;
 
-import com.nzl.pojo.User;
+import com.nzl.model.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

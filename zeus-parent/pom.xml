@@ -22,8 +22,9 @@
     <modules>
         <module>../zeus-common</module>
         <module>../zeus-manager</module>
-        <!--        <module>../zeus-web</module>-->
-        <!--        <module>../zeus-server</module>-->
+<!--        <module>../zeus-admin</module>-->
+        <module>../zeus-server</module>
+        <module>../zeus-sso</module>
     </modules>
 
     <!--全局加载引用-->
@@ -45,6 +46,10 @@
 
     <!-- 集中定义依赖版本号 -->
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
         <!-- spring -->
         <spring.version>5.1.8.RELEASE</spring.version>
 
@@ -55,11 +60,14 @@
         <druid.version>1.1.19</druid.version>
         <jsqlparser.version>2.1</jsqlparser.version>
 
+        <!-- 通用mapper -->
+        <mapper.version>1.2.3</mapper.version>
+
         <!-- 测试相关 -->
         <junit.version>4.12</junit.version>
 
         <!-- 缓存 -->
-        <jedis.version>2.9.1</jedis.version>
+        <jedis.version>2.9.0</jedis.version>
         <solrj.version>8.1.1</solrj.version>
 
         <!-- 日志 -->
@@ -84,6 +92,7 @@
 
         <!-- json解析 -->
         <jackson.version>2.9.9</jackson.version>
+        <fastjson.version>1.2.62</fastjson.version>
 
         <!-- 前端支持 -->
         <jstl.version>1.2</jstl.version>
@@ -94,7 +103,8 @@
 
         <!-- 权限 -->
         <shiro.version>1.4.0</shiro.version>
-
+        <!-- JWT -->
+        <jwt.version>3.3.0</jwt.version>
 
         <maven-resources-plugin>3.1.0</maven-resources-plugin>
         <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
@@ -128,18 +138,28 @@
                 <artifactId>commons-net</artifactId>
                 <version>${commons-net.version}</version>
             </dependency>
+
             <!-- Jackson Json处理工具包 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+
+            <!-- Fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
             <!-- httpclient -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
+
             <!-- 单元测试 -->
             <dependency>
                 <groupId>junit</groupId>
@@ -163,6 +183,18 @@
                 <groupId>com.github.miemiedev</groupId>
                 <artifactId>mybatis-paginator</artifactId>
                 <version>${mybatis.paginator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+
+            <!-- 通用Mapper -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.version}</version>
             </dependency>
 
             <!-- 分页 -->
@@ -260,24 +292,33 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.2.0</version>
+                <version>${jwt.version}</version>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
 
     <build>
         <plugins>
+            <!-- 指定JDK编译版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <compilerVersion>1.8</compilerVersion>
-                    <source>1.8</source>
-                    <encoding>UTF-8</encoding>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <!-- JavaDoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
             </plugin>
         </plugins>
     </build>
+
 </project>
