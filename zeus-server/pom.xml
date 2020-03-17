@@ -6,8 +6,8 @@
         <artifactId>zeus-parent</artifactId>
         <groupId>com.nzl</groupId>
         <version>0.1</version>
-        <relativePath>../zeus-parent/pom.xml</relativePath>
     </parent>
+
     <artifactId>zeus-server</artifactId>
     <packaging>jar</packaging>
     <version>0.1</version>

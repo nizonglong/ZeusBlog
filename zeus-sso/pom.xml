@@ -43,12 +43,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Shiro -->
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-		</dependency>
-
 		<!-- Redis-Jedis -->
 		<dependency>
 			<groupId>redis.clients</groupId>

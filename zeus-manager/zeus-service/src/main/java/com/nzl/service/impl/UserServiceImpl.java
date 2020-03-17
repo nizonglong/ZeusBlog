@@ -149,48 +149,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public ZeusResponseBean updatePortrait(MultipartFile head) {
-        User user = redisUtil.getUser();
-
-        String newHead = fileService.uploadOne(head, UPLOAD_PATH_PORTRAIT);
-        if (null != newHead && newHead.length() > 0) {
-            // 若头像更新完成则删除旧头像
-            String oldPic = user.getHeadPortraitUrl();
-            oldPic = oldPic.substring(oldPic.lastIndexOf('/') + 1);
-
-            if (!DEFAULT_PORTRAIT.equals(oldPic)) {
-                int isDelete = fileService.deleteFile(UPLOAD_PATH_PORTRAIT + "/" + oldPic);
-
-                if (isDelete == 1) {
-                    // 原始头像删除成功且上传了新头像则更新数据库和Redis
-                    user.setHeadPortraitUrl(LOCAL_IP + ":" + TOMCAT_PORT_8080
-                            + "/" + DEFAULT_LOCAL_PORTAL_DIR + "/" + newHead);
-                    redisUtil.set(user.getUid(), user, SSO_SESSION_EXPIRE);
-
-                    userMapper.updateByPrimaryKeySelective(user);
-                    return ZeusResponseBean.ok();
-                } else if (isDelete == 0) {
-                    return ZeusResponseBean.build(400, "原始头像删除失败");
-                } else {
-                    return ZeusResponseBean.build(400, "文件不存在");
-                }
-            } else {
-                // 新上传了新头像则直接更新数据库
-                user.setHeadPortraitUrl(LOCAL_IP + ":" + TOMCAT_PORT_8080
-                        + "/" + DEFAULT_LOCAL_PORTAL_DIR + "/" + newHead);
-                redisUtil.set(user.getUid(), user,SSO_SESSION_EXPIRE);
-                userMapper.updateByPrimaryKeySelective(user);
-                return ZeusResponseBean.ok();
-            }
-
-        }
-
-        return ZeusResponseBean.build(400, "头像更新失败");
-    }
-
-
-    @Override
     public User getUserByEmail(String email) {
         return userMapper.getUserByEmail(email);
     }

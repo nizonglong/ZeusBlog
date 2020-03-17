@@ -7,7 +7,6 @@ import com.nzl.model.pojo.Permission;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
-import java.util.Set;
 
 public interface PermissionMapper extends Mapper<PermissionDto> {
     

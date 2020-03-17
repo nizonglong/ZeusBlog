@@ -1,7 +1,6 @@
 package com.nzl.server.util;
 
 import com.nzl.model.pojo.User;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -573,14 +572,4 @@ public final class RedisUtil {
     }
 
 
-    /**
-     * 通过Redis获取User信息
-     *
-     * @return 从Redis通过uid获取到的User信息
-     */
-    public User getUser() {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-
-        return (User) get(user.getUid());
-    }
 }

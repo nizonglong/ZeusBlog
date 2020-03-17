@@ -2,6 +2,7 @@
 package com.nzl.sso.service.impl;
 
 import com.nzl.dao.UserMapper;
+import com.nzl.model.dto.UserDto;
 import com.nzl.model.pojo.User;
 import com.nzl.sso.service.SsoUserService;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
  * @version: 0.1
  **/
 @Service
-public class SsoUserServiceImpl implements SsoUserService {
+public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoUserService {
     @Resource
     private UserMapper userMapper;
 

@@ -4,8 +4,6 @@ import com.nzl.common.constant.Constant;
 import com.nzl.common.exception.ZeusException;
 import com.nzl.common.util.SerializableUtil;
 import com.nzl.common.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -19,7 +17,7 @@ import java.util.Set;
  * @desc: JedisUtil(推荐存Byte数组 ， 存Json字符串效率更慢)
  * @version: 0.1
  **/
-//@Component
+@Component
 public class JedisUtil {
 
     /**
@@ -28,19 +26,19 @@ public class JedisUtil {
      * 现在改为静态注入JedisPool连接池，JedisUtil直接调用静态方法即可
      * https://blog.csdn.net/W_Z_W_888/article/details/79979103
      */
-    private static JedisPool jedisPool = SpringBeanUtils.getBean(JedisPool.class);
+    private static JedisPool jedisPool;
 
-//    @Resource
-//    public void setJedisPool(JedisPool pool) {
-//        jedisPool = pool;
-//    }
+    @Resource
+    public void setJedisPool(JedisPool pool) {
+        jedisPool = pool;
+    }
 
     /**
      * 获取Jedis实例
      *
      * @param
      * @return redis.clients.jedis.Jedis
-     * @author dolyw.com
+     * @author nizonglong
      * @date 2018/9/4 15:47
      */
     public static synchronized Jedis getJedis() {
@@ -60,7 +58,7 @@ public class JedisUtil {
      *
      * @param
      * @return void
-     * @author dolyw.com
+     * @author nizonglong
      * @date 2018/9/5 9:16
      */
     public static void closePool() {
@@ -76,7 +74,7 @@ public class JedisUtil {
      *
      * @param key
      * @return java.lang.Object
-     * @author dolyw.com
+     * @author nizonglong
      * @date 2018/9/4 15:47
      */
     public static Object getObject(String key) {
@@ -97,7 +95,7 @@ public class JedisUtil {
      * @param key
      * @param value
      * @return java.lang.String
-     * @author dolyw.com
+     * @author nizonglong
      * @date 2018/9/4 15:49
      */
     public static String setObject(String key, Object value) {
@@ -115,7 +113,7 @@ public class JedisUtil {
      * @param value
      * @param expiretime
      * @return java.lang.String
-     * @author dolyw.com
+     * @author nizonglong
      * @date 2018/9/4 15:50
      */
     public static String setObject(String key, Object value, int expiretime) {
@@ -136,7 +134,7 @@ public class JedisUtil {
      *
      * @param key
      * @return java.lang.Object
-     * @author dolyw.com
+     * @author nizonglong
      * @date 2018/9/4 15:47
      */
     public static String getJson(String key) {

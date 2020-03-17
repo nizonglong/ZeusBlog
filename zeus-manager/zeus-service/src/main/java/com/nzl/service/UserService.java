@@ -58,7 +58,7 @@ public interface UserService {
      * @param head 用户头像文件
      * @return ZeusBlogResult
      */
-    ZeusResponseBean updatePortrait(MultipartFile head);
+//    ZeusResponseBean updatePortrait(MultipartFile head);
 
 
     /**
