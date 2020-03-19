@@ -1,7 +1,7 @@
 package com.nzl.sso.service;
 
+import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.model.dto.UserDto;
-import com.nzl.model.pojo.User;
 
 /**
  * @author: nizonglong
@@ -11,10 +11,11 @@ import com.nzl.model.pojo.User;
  **/
 public interface SsoUserService extends IBaseService<UserDto> {
     /**
-     * 获取用户信息
+     * 注册时用于检测数据
      *
-     * @param username
-     * @return
+     * @param content 要检测的数据
+     * @param type    数据类型:手机号码、用户名、邮箱
+     * @return ZeusBlogResult
      */
-    User getUser(String username);
+    ZeusResponseBean checkData(String content, Integer type);
 }

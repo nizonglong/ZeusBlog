@@ -53,7 +53,7 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        String username = JwtUtil.getClaim(principalCollection.toString(), Constant.USERNAME);
+        String username = JwtUtil.getClaim(principalCollection.toString(), Constant.EMAIL);
         UserDto userDto = new UserDto();
         userDto.setUsername(username);
         // 查询用户角色
@@ -84,7 +84,7 @@ public class UserRealm extends AuthorizingRealm {
     protected SimpleAuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
         // 解密获得account，用于和数据库进行对比
-        String username = JwtUtil.getClaim(token, Constant.USERNAME);
+        String username = JwtUtil.getClaim(token, Constant.EMAIL);
         // 帐号为空
         if (StringUtil.isBlank(username)) {
             throw new AuthenticationException("Token中帐号为空(The account in Token is empty.)");

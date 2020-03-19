@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzl.dao.ArticleBlogMapper">
+  <resultMap id="BaseResultMap" type="com.nzl.model.pojo.ArticleBlog">
+    <id column="article_blog_id" jdbcType="BIGINT" property="articleBlogId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="blog_time" jdbcType="TIMESTAMP" property="blogTime" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="blog_type_id" jdbcType="TINYINT" property="blogTypeId" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nzl.model.pojo.ArticleBlog">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    article_blog_id, title, blog_time, uid, blog_type_id, gmt_modified, gmt_create
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+
+
+</mapper>

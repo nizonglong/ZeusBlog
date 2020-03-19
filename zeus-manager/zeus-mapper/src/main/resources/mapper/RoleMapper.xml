@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzl.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.nzl.model.pojo.Role">
+
+        <id column="role_id" jdbcType="TINYINT" property="roleId"/>
+        <result column="available" jdbcType="INTEGER" property="available"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    role_id, available, description, role, gmt_create, gmt_modified
+  </sql>
+
+
+    <select id="findRoleByUser" parameterType="com.nzl.model.dto.RoleDto" resultMap="BaseResultMap">
+        SELECT
+        r.role_id as id,
+        r.role as role
+        FROM
+        user u
+        LEFT JOIN user_role ur ON u.uid = ur.uid
+        LEFT JOIN role r ON r.role_id = ur.role_id
+        <where>
+            <if test="username != null and username != '' ">
+                AND u.username #{username}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

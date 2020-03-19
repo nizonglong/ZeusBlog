@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author: nizonglong
  * @date: 2020/3/17 0:09
- * @desc:
+ * @desc: SpringBean 启动工具
  * @version: 0.1
  **/
 @Component

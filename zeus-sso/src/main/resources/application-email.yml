@@ -4,7 +4,7 @@ spring:
     host: smtp.163.com
     username: zeusblog@163.com
     #163邮箱的授权码
-    password: zeusblog777
+    password: TPGKTSFRPSZGLYHL
     default-encoding: UTF-8
     properties:
       mail:
@@ -13,11 +13,6 @@ spring:
           starttls:
             enable: true
             required: true
-
-#设置一个邮件发送人
-lance:
-  mail:
-    sender: zeusblog@163.com
 
 
 

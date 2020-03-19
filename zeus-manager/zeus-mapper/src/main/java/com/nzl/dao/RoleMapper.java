@@ -11,17 +11,6 @@ import java.util.List;
  * @author nizonglong
  */
 public interface RoleMapper extends Mapper<RoleDto> {
-    int deleteByPrimaryKey(Byte roleId);
-
-    int insert(Role record);
-
-    int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Byte roleId);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
 
     /**
      * 列出用户的角色

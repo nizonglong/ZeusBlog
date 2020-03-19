@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzl.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.nzl.model.pojo.User">
+        <id column="uid" jdbcType="VARBINARY" property="uid"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="head_portrait_url" jdbcType="VARCHAR" property="headPortraitUrl"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="join_time" jdbcType="DATE" property="joinTime"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid, username, password, real_name, gender, birthday, head_portrait_url, introduction,
+        join_time, email, phone, salt, status, gmt_create, gmt_modified
+    </sql>
+
+
+    <select id="getUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where username = #{username}
+    </select>
+
+    <select id="dynamicCountQuery" parameterType="java.lang.String" resultType="int" >
+        select count(#{param})
+        from user
+        where #{param} = #{value}
+    </select>
+
+    <select id="getUserByEmail" parameterType="com.nzl.model.pojo.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where email = #{email}
+    </select>
+
+
+</mapper>

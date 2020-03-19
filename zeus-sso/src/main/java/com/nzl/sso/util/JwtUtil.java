@@ -61,7 +61,7 @@ public class JwtUtil {
     public static boolean verify(String token) {
         try {
             // 帐号加JWT私钥解密
-            String secret = getClaim(token, Constant.USERNAME) + Base64ConvertUtil.decode(encryptJWTKey);
+            String secret = getClaim(token, Constant.EMAIL) + Base64ConvertUtil.decode(encryptJWTKey);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier verifier = JWT.require(algorithm).build();
             verifier.verify(token);

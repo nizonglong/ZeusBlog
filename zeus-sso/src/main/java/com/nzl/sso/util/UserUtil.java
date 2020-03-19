@@ -5,7 +5,6 @@ import com.nzl.common.exception.ZeusException;
 import com.nzl.dao.UserMapper;
 import com.nzl.model.dto.UserDto;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,14 +24,14 @@ public class UserUtil {
      * 获取当前登录用户
      *
      * @param
-     * @return com.wang.model.UserDto
-     * @author wliduo[i@dolyw.com]
+     * @return UserDto
+     * @author nizonglong
      * @date 2019/3/15 11:48
      */
     public UserDto getUser() {
         String token = SecurityUtils.getSubject().getPrincipal().toString();
-        // 解密获得Account
-        String username = JwtUtil.getClaim(token, Constant.USERNAME);
+        // 解密获得 username
+        String username = JwtUtil.getClaim(token, Constant.EMAIL);
         UserDto userDto = new UserDto();
         userDto.setUsername(username);
         userDto = userMapper.selectOne(userDto);
@@ -47,8 +46,8 @@ public class UserUtil {
      * 获取当前登录用户Id
      *
      * @param
-     * @return com.wang.model.UserDto
-     * @author wliduo[i@dolyw.com]
+     * @return UserDto
+     * @author nizonglong
      * @date 2019/3/15 11:48
      */
     public String getUserId() {
@@ -59,8 +58,8 @@ public class UserUtil {
      * 获取当前登录用户Token
      *
      * @param
-     * @return com.wang.model.UserDto
-     * @author wliduo[i@dolyw.com]
+     * @return UserDto
+     * @author nizonglong
      * @date 2019/3/15 11:48
      */
     public String getToken() {
@@ -71,14 +70,14 @@ public class UserUtil {
      * 获取当前登录用户Account
      *
      * @param
-     * @return com.wang.model.UserDto
-     * @author wliduo[i@dolyw.com]
+     * @return UserDto
+     * @author nizonglong
      * @date 2019/3/15 11:48
      */
-    public String getAccount() {
+    public String getUsername() {
         String token = SecurityUtils.getSubject().getPrincipal().toString();
-        // 解密获得Account
-        return JwtUtil.getClaim(token, Constant.USERNAME);
+        // 解密获得 USERNAME
+        return JwtUtil.getClaim(token, Constant.EMAIL);
     }
 }
 

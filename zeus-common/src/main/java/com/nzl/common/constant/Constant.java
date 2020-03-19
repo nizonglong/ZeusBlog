@@ -47,9 +47,14 @@ public class Constant {
     public static final String PREFIX_SHIRO_REFRESH_TOKEN = "shiro:refresh_token:";
 
     /**
-     * JWT-username:
+     * redis-key-前缀-register:code:
      */
-    public static final String USERNAME = "username";
+    public static final String PREFIX_REGISTER_CODE = "register:code:";
+
+    /**
+     * JWT-email:
+     */
+    public static final String EMAIL = "email";
 
     /**
      * JWT-currentTimeMillis:
@@ -59,6 +64,6 @@ public class Constant {
     /**
      * PASSWORD_MAX_LEN
      */
-    public static final Integer PASSWORD_MAX_LEN = 8;
+    public static final Integer PASSWORD_MAX_LEN = 16;
 
 }

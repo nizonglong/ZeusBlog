@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   profiles:
-    include: mysql,redis,email
+    include: email
 
   servlet:
     multipart:
@@ -23,10 +23,3 @@ logging:
   level:
     com.neo.mapper: DEBUG
 
-# 上传路径
-## 头像上传路径
-upload:
-  path:
-    portrait: G:/IDEA/ZeusBlog/zeus-server/src/main/resources/static/upload/portrait
-    ## 博客上传路径
-    blog: G:/data

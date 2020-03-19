@@ -2,6 +2,7 @@ package com.nzl.model.pojo;
 
 import lombok.*;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -106,5 +108,9 @@ public class User implements Serializable {
 //        return this.username + this.salt;
 //    }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
 }

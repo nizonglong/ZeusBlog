@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzl.dao.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.nzl.model.pojo.Permission">
+        <id column="permission_id" jdbcType="TINYINT" property="permissionId"/>
+        <result column="available" jdbcType="CHAR" property="available"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="permission" jdbcType="VARCHAR" property="permission"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        permission_id, available, name, permission, url, gmt_modified, gmt_create
+    </sql>
+
+
+    <select id="findPermissionByRole" parameterType="com.nzl.model.dto.PermissionDto" resultMap="BaseResultMap">
+        SELECT
+        p.permission_id as id,
+        p.name as name,
+        FROM
+        role r
+        LEFT JOIN role_permission rp ON r.role_id = rp.role_id
+        LEFT JOIN permission p ON p.permission_id = rp.permission_id
+        <where>
+            <if test="role != null and role != '' ">
+                AND r.role = #{role}
+            </if>
+        </where>
+  </select>
+
+</mapper>

@@ -3,6 +3,7 @@ package com.nzl.common.pojo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author: nizonglong
@@ -54,8 +55,8 @@ public class ZeusResponseBean {
     }
 
     public ZeusResponseBean(Object data) {
-        this.status = 200;
-        this.msg = "OK";
+        this.status = HttpStatus.OK.value();
+        this.msg = HttpStatus.OK.getReasonPhrase();
         this.data = data;
     }
 

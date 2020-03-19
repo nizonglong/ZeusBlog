@@ -6,20 +6,6 @@ import com.nzl.model.pojo.User;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface UserMapper extends Mapper<UserDto> {
-    /**
-     * 自动生成的接口
-     */
-    int deleteByPrimaryKey(String uid);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(String uid);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
 
     /**
      * 通过用户名获取用户信息
@@ -36,7 +22,7 @@ public interface UserMapper extends Mapper<UserDto> {
      * @param value
      * @return
      */
-    int dynamicCountQuery(String param, String value);
+    Integer dynamicCountQuery(String param, String value);
 
     /**
      * 邮件查询用户

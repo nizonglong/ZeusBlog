@@ -1,9 +1,9 @@
 var PAGE = {
     goReg: function () {
-        window.location.href = "/page/showReg";
+        window.location.href = "/login";
     },
     goLogin: function () {
-        window.location.href = "/page/showLogin";
+        window.location.href = "/signup";
     }
 };
 
@@ -11,12 +11,16 @@ var PAGE = {
 var EMAIL = {
     param: {
         // 系统的url
-        surl: "http://localhost:8080"
+        surl: "http://localhost:8081"
     },
     /**
      * 检测输入
      */
     checkInput: function () {
+        if ($("#umail").val().length <= 0) {
+            alert("请输入正确邮箱")
+            return false
+        }
         return true;
     },
     beforeSendEmail: function () {
@@ -26,7 +30,7 @@ var EMAIL = {
             type: 'get',
             url: this.param.surl + "/check/" + $("#umail").val() + "/3",
             success: function (data) {
-                if (data.status === 200 && data.msg === "OK") {
+                if (data.status === 200) {
                     EMAIL.doSendEmail();
                 } else {
                     alert("邮箱已存在，请检查是否已注册。");
@@ -36,30 +40,40 @@ var EMAIL = {
                 alert("Ajax 异常");
             }
         });
-
-
     },
     doSendEmail: function () {
-        var email = $("#umail").val();
-        console.log(email);
+        this.timeCount()
+
+        const email = $("#umail").val();
 
         $.ajax({
             method: 'get',
-            url: this.param.surl + "/sendActiveEmail?email=" + email,
+            url: this.param.surl + "/sendActiveCode?email=" + email,
             data: email,
             cache: false,
             processData: false,
             contentType: false
         }).success(function (data) {
-            if (data.status === 200) {
-                alert("邮件发送成功！");
-            } else {
-                alert("邮件发送异常！");
-            }
+            alert(data.data);
         }).error(function () {
             alert("Ajax异常!");
         });
-
+    },
+    timeCount:function() {
+        $("#sendCode").attr("disabled",true);
+        var starting = 60;
+        var start1;
+        var time = setInterval(function () {
+            if (starting > 0) {
+                starting--;
+                start1 = starting > 10 ? starting:`0${starting}`
+                $("#sendCode").html(`${start1}s后重新发送`);
+            } else if (starting === 0) {
+                $("#sendCode").html(`发送验证码`);
+                clearInterval(time);
+                $("#sendCode").attr("disabled",false);
+            }
+        }, 1000)
     },
     sendEmail: function () {
         if (this.checkInput()) {
@@ -81,27 +95,20 @@ var REG = {
         return true;
     },
     doSubmit: function () {
-        var form = $("#regForm");
-        encodeURI(encodeURI(form)); ///注意两次编码！！
-        var formData = new FormData(document.getElementById("regForm"));
-
-        console.log("注册表单结果=" + formData);
-
         $.ajax({
             method: 'post',
             url: this.param.surl + "/register",
-            data: formData,
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(getFormData($("#regForm"))),
+            dataType: 'json',
             cache: false,
-            processData: false,
-            contentType: false
+            processData: false
         }).success(function (data) {
             if (data.status === 200) {
                 alert("恭喜，注册成功！快去登录吧！");
-                window.location.href = "/page/showLogin";
-            } else if (data.status === 500) {
-                alert("注册异常！");
+                PAGE.goLogin()
             } else {
-                alert(data.data);
+                alert(data.message);
             }
         }).error(function () {
             alert("Ajax异常!");
@@ -119,7 +126,7 @@ var REG = {
 var LOGIN = {
     param: {
         // 系统的url
-        surl: "http://localhost:8080"
+        surl: "http://localhost:8081"
     },
     /**
      * 检测输入
@@ -128,20 +135,17 @@ var LOGIN = {
         return true;
     },
     doSubmit: function () {
-        var formData = new FormData(document.getElementById("loginForm"));
-
         $.ajax({
-            method: 'post',
-            url: this.param.surl + "/login",
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false
+            type: 'post',
+            url: this.param.surl + "/doLogin",
+            data: JSON.stringify(getFormData($("#loginForm"))),
+            dataType:'json',
+            contentType: "application/json;charset=UTF-8"
         }).success(function (data) {
-            if (data.status === 200 || data.length > 20) {
-                window.location.href = "/main/index";
-            } else if (data.status === 400) {
-                alert(data.msg);
+            if (data.status === 200) {
+                alert(data.data);
+            } else {
+                alert(data.data);
             }
         }).error(function () {
             alert("Ajax异常!");
@@ -154,3 +158,14 @@ var LOGIN = {
         }
     }
 };
+
+function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}

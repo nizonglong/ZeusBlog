@@ -120,6 +120,10 @@ body {
     margin-top:15%;
     text-align:center;
 }
+.reg-content {
+    margin-top:5%;
+    text-align:center;
+}
 .log-button {
     background-color:transparent;   
     border-radius:8px;
