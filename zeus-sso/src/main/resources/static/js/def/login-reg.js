@@ -4,6 +4,9 @@ var PAGE = {
     },
     goLogin: function () {
         window.location.href = "/signup";
+    },
+    goIndex: function () {
+        window.location.href = "http://localhost:8080/index";
     }
 };
 
@@ -59,19 +62,19 @@ var EMAIL = {
             alert("Ajax异常!");
         });
     },
-    timeCount:function() {
-        $("#sendCode").attr("disabled",true);
+    timeCount: function () {
+        $("#sendCode").attr("disabled", true);
         var starting = 60;
         var start1;
         var time = setInterval(function () {
             if (starting > 0) {
                 starting--;
-                start1 = starting > 10 ? starting:`0${starting}`
+                start1 = starting > 10 ? starting : `0${starting}`
                 $("#sendCode").html(`${start1}s后重新发送`);
             } else if (starting === 0) {
                 $("#sendCode").html(`发送验证码`);
                 clearInterval(time);
-                $("#sendCode").attr("disabled",false);
+                $("#sendCode").attr("disabled", false);
             }
         }, 1000)
     },
@@ -108,7 +111,7 @@ var REG = {
                 alert("恭喜，注册成功！快去登录吧！");
                 PAGE.goLogin()
             } else {
-                alert(data.message);
+                alert(data.msg);
             }
         }).error(function () {
             alert("Ajax异常!");
@@ -139,13 +142,13 @@ var LOGIN = {
             type: 'post',
             url: this.param.surl + "/doLogin",
             data: JSON.stringify(getFormData($("#loginForm"))),
-            dataType:'json',
+            dataType: 'json',
             contentType: "application/json;charset=UTF-8"
         }).success(function (data) {
             if (data.status === 200) {
-                alert(data.data);
+                PAGE.goIndex()
             } else {
-                alert(data.data);
+                alert(data.msg);
             }
         }).error(function () {
             alert("Ajax异常!");

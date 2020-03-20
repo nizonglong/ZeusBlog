@@ -1,4 +1,4 @@
-package com.nzl.sso.service;
+package com.nzl.common.service;
 
 import java.util.List;
 

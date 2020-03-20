@@ -1,10 +1,9 @@
-package com.nzl.sso.service.impl;
+package com.nzl.common.service.impl;
 
-import com.nzl.sso.service.IBaseService;
+import com.nzl.common.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

@@ -30,10 +30,10 @@ public class UserUtil {
      */
     public UserDto getUser() {
         String token = SecurityUtils.getSubject().getPrincipal().toString();
-        // 解密获得 username
-        String username = JwtUtil.getClaim(token, Constant.EMAIL);
+        // 解密获得 email
+        String email = JwtUtil.getClaim(token, Constant.EMAIL);
         UserDto userDto = new UserDto();
-        userDto.setUsername(username);
+        userDto.setEmail(email);
         userDto = userMapper.selectOne(userDto);
         // 用户是否存在
         if (userDto == null) {

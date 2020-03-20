@@ -80,6 +80,9 @@ public class ShiroConfig {
         filterMap.put("jwt", new JwtFilter());
         factoryBean.setFilters(filterMap);
         factoryBean.setSecurityManager(securityManager);
+        // 未授权界面;
+        factoryBean.setUnauthorizedUrl("/403");
+
         // 自定义url规则使用LinkedHashMap有序Map
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>(16);
         // Swagger接口文档

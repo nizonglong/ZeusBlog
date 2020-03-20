@@ -38,9 +38,6 @@ public class RegisterController {
     @Resource
     private SsoUserService userService;
 
-    @Resource
-    private MailUtil mailUtil;
-
 
     /**
      * 新增用户
@@ -60,48 +57,32 @@ public class RegisterController {
 
         // 判断当前帐号是否存在
         UserDto userDtoTemp = new UserDto();
-        userDtoTemp.setUsername(userDto.getUsername());
-        userDtoTemp.setUsername(userDto.getEmail());
+        userDtoTemp.setEmail(userDto.getEmail());
         userDtoTemp = userService.selectOne(userDtoTemp);
         if (userDtoTemp != null && StringUtil.isNotBlank(userDtoTemp.getPassword())) {
             return ZeusResponseBean.build(HttpStatus.OK.value(), "该帐号已存在(Account exist.)");
         }
-        userDto.setJoinTime(new Date());
-        // 密码以邮箱+密码的形式进行AES加密
-        if (userDto.getPassword().length() > Constant.PASSWORD_MAX_LEN) {
-            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "密码最多16位(Password up to 16 bits.)");
-        }
-        String key = AesCipherUtil.enCrypto(userDto.getEmail() + userDto.getPassword());
-        userDto.setPassword(key);
 
-        String uid = "zeus_" + UUID.randomUUID();
-        userDto.setUid(uid);
-
-        int count = userService.insert(userDto);
-        if (count <= 0) {
-            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "新增失败(Insert Failure)");
+        try {
+            return userService.creatUser(userDto);
+        } catch (Exception e) {
+            return ZeusResponseBean.build(HttpStatus.INTERNAL_SERVER_ERROR.value(), "新增失败(Insert Failure)");
         }
-        return ZeusResponseBean.ok("新增成功(Insert Success)");
     }
 
+    /**
+     * 发送验证码邮件
+     *
+     * @param email
+     * @return
+     */
     @GetMapping("/sendActiveCode")
     public ZeusResponseBean sendActiveCode(String email) {
         if (StringUtil.isBlank(email)) {
             return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "邮箱不能为空");
         }
 
-        try {
-            // 生成验证码，加入redis
-            String code = VerifyUtil.getRandonString(6);
-            JedisUtil.setObject(Constant.PREFIX_REGISTER_CODE + email, code, ServerConstant.TIME_10_MINS);
-            // 发送邮件
-            mailUtil.singleHtmlSend(email, ServerConstant.REGISTER_SUBJECT, ServerConstant.registerContent(email, code));
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return ZeusResponseBean.ok("验证码发送失败");
-        }
-
-        return ZeusResponseBean.ok("验证码已发送");
+        return userService.sendActiveCode(email);
     }
 
     @RequestMapping("/check/{param}/{type}")

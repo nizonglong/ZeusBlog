@@ -2,6 +2,10 @@ package com.nzl.sso.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.model.dto.UserDto;
+import com.nzl.common.service.IBaseService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author: nizonglong
@@ -18,4 +22,40 @@ public interface SsoUserService extends IBaseService<UserDto> {
      * @return ZeusBlogResult
      */
     ZeusResponseBean checkData(String content, Integer type);
+
+    /**
+     * 发送验证码邮件
+     *
+     * @param email
+     * @return
+     */
+    ZeusResponseBean sendActiveCode(String email);
+
+    /**
+     * 创建用户
+     *
+     * @param userDto
+     * @return
+     */
+    ZeusResponseBean creatUser(UserDto userDto);
+
+    /**
+     * 邮箱登录接口
+     *
+     * @param email
+     * @param password
+     * @param request
+     * @param response
+     * @return
+     */
+    ZeusResponseBean userLogin(String email, String password,
+                               HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 根据token获取用户信息
+     *
+     * @param token
+     * @return
+     */
+    ZeusResponseBean getUserByToken(String token);
 }

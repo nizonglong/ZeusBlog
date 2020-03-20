@@ -18,9 +18,11 @@ spring:
         # 最大活跃连接数，负数为不限制
         max-active: -1
 
-sso:
-  #sso系统session有效期：7天
-  SSO_SESSION_EXPIRE: 604800
+#session在redis中的域名
+REDIS_USER_SESSION_KEY: REDIS_USER_SESSION
+
+#sso系统session有效期：30分钟
+SSO_SESSION_EXPIRE: 1800
 
 
 
