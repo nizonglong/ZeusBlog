@@ -130,6 +130,20 @@ public class JedisUtil {
     }
 
     /**
+     * 设置redis键值-expiretime
+     *
+     * @param key
+     * @param expireTime
+     */
+    public static void setExpire(String key, int expireTime) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            jedis.expire(key.getBytes(), expireTime);
+        } catch (Exception e) {
+            throw new ZeusException("设置Redis键值setExpire方法异常:key=" + key + " expireTime=" + expireTime + " cause=" + e.getMessage());
+        }
+    }
+
+    /**
      * 获取redis键值-Json
      *
      * @param key

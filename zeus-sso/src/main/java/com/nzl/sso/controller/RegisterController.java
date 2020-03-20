@@ -1,30 +1,17 @@
 package com.nzl.sso.controller;
 
 import com.nzl.common.constant.Constant;
-import com.nzl.common.exception.ZeusException;
-import com.nzl.common.exception.ZeusUnauthorizedException;
-import com.nzl.common.pojo.HttpStatusEnum;
 import com.nzl.common.pojo.ZeusResponseBean;
-import com.nzl.common.util.AesCipherUtil;
-import com.nzl.common.util.ExceptionUtil;
 import com.nzl.common.util.StringUtil;
-import com.nzl.common.util.VerifyUtil;
 import com.nzl.model.dto.UserDto;
-import com.nzl.server.common.ServerConstant;
-import com.nzl.server.util.MailUtil;
 import com.nzl.sso.service.SsoUserService;
 import com.nzl.sso.util.JedisUtil;
-import com.nzl.sso.util.UserUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * @author: nizonglong
@@ -33,6 +20,7 @@ import java.util.UUID;
  * @version: 0.1
  **/
 @RestController
+@RequestMapping("/user")
 public class RegisterController {
 
     @Resource

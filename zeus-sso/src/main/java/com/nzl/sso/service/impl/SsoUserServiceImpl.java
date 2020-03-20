@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -35,7 +34,7 @@ import java.util.UUID;
  * @desc:
  * @version: 0.1
  **/
-@Transactional(rollbackFor=Exception.class)
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoUserService {
     @Resource
@@ -138,7 +137,7 @@ public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoU
             //保存用户之前，把用户对象中的密码清空。
             userDtoTemp.setPassword(null);
             //把用户信息写入redis, 设置session的过期时间
-            JedisUtil.setObject(REDIS_USER_SESSION_KEY + ":" + token, JsonUtils.objectToJson(userDtoTemp), SSO_SESSION_EXPIRE);
+            JedisUtil.setJson(REDIS_USER_SESSION_KEY + ":" + token, JsonUtils.objectToJson(userDtoTemp), SSO_SESSION_EXPIRE);
 
             //添加写cookie的逻辑，cookie的有效期是关闭浏览器就失效
             CookieUtils.setCookie(request, response, Constant.ZEUS_TOKEN, token);
@@ -160,7 +159,7 @@ public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoU
             return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "此session已经过期，请重新登录");
         }
         //更新过期时间
-        JedisUtil.setJson(REDIS_USER_SESSION_KEY + ":" + token, json, SSO_SESSION_EXPIRE);
+        JedisUtil.setExpire(REDIS_USER_SESSION_KEY + ":" + token, SSO_SESSION_EXPIRE);
 
         //返回用户信息
         return ZeusResponseBean.ok(JsonUtils.jsonToPojo(json, UserDto.class));

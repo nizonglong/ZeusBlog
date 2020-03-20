@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @version: 1.0
  */
 @Configuration
-public class MyWebAppConfigurer implements WebMvcConfigurer {
+public class SsoWebAppConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

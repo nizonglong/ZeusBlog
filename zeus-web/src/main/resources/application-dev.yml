@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   profiles:
-    include: mysql,redis,email,config
+    include: mysql,redis
 
 
   # 配置静态资源文件路径
@@ -27,8 +27,6 @@ spring:
 
   mvc:
     static-path-pattern: /**
-    throw-exception-if-no-handler-found: true
-
 
 mybatis:
   configuration:
@@ -36,8 +34,7 @@ mybatis:
   mapper-locations: classpath*:mapper/*.xml
 
 
+
 logging:
   level:
     com.neo.mapper: DEBUG
-
-

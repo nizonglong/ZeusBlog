@@ -1,9 +1,9 @@
 var PAGE = {
     goReg: function () {
-        window.location.href = "/login";
+        window.location.href = "/signup";
     },
     goLogin: function () {
-        window.location.href = "/signup";
+        window.location.href = "/login";
     },
     goIndex: function () {
         window.location.href = "http://localhost:8080/index";
@@ -14,7 +14,7 @@ var PAGE = {
 var EMAIL = {
     param: {
         // 系统的url
-        surl: "http://localhost:8081"
+        surl: "http://localhost:8081/user"
     },
     /**
      * 检测输入
@@ -89,7 +89,7 @@ var EMAIL = {
 var REG = {
     param: {
         // 系统的url
-        surl: "http://localhost:8081"
+        surl: "http://localhost:8081/user"
     },
     /**
      * 检测输入
@@ -129,7 +129,7 @@ var REG = {
 var LOGIN = {
     param: {
         // 系统的url
-        surl: "http://localhost:8081"
+        surl: "http://localhost:8081/user"
     },
     /**
      * 检测输入

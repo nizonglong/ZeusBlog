@@ -96,10 +96,7 @@ public class ShiroConfig {
         // 登录接口放开
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/signup", "anon");
-        filterChainDefinitionMap.put("/doLogin", "anon");
-        filterChainDefinitionMap.put("/register", "anon");
-        filterChainDefinitionMap.put("/sendActiveCode", "anon");
-        filterChainDefinitionMap.put("/check/**", "anon");
+        filterChainDefinitionMap.put("/user/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         // 所有请求通过我们自己的JWTFilter
         filterChainDefinitionMap.put("/**", "jwt");
