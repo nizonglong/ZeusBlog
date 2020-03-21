@@ -98,7 +98,7 @@ var REG = {
     doSubmit: function () {
         $.ajax({
             method: 'post',
-            url: URLS + "/user/register",
+            url: URLS.sso_url + "/user/register",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(getFormData($("#regForm"))),
             dataType: 'json',
@@ -134,7 +134,7 @@ var LOGIN = {
     doSubmit: function () {
         $.ajax({
             type: 'post',
-            url: URLS + "/user/doLogin",
+            url: URLS.sso_url + "/user/doLogin",
             data: JSON.stringify(getFormData($("#loginForm"))),
             dataType: 'json',
             contentType: "application/json;charset=UTF-8"

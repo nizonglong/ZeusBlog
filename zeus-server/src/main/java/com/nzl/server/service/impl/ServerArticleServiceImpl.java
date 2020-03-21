@@ -50,7 +50,7 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
 //            e.printStackTrace();
 //        }
 
-        PageHelper.startPage(index, 10);
+        PageHelper.startPage(index, Constant.DEFAULT_PAGE_SIZE);
         List<ArticleDto> articles = articleBlogMapper.getPageArticles(index, pageSize);
         PageInfo<ArticleDto> pageInfo = new PageInfo<>(articles);
 
