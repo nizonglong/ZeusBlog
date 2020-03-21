@@ -3,14 +3,11 @@ package com.nzl.web.filter;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.util.CookieUtils;
 import com.nzl.model.dto.UserDto;
-import com.nzl.web.common.WebConstant;
 import com.nzl.web.service.impl.WebUserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,7 +35,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //取不到用户信息
         if (null == user) {
             //跳转到登录页面，把用户请求的url作为参数传递给登录页面。
-            response.sendRedirect(WebConstant.SSO_BASE_URL + WebConstant.SSO_PAGE_LOGIN
+            response.sendRedirect(Constant.SSO_BASE_URL + Constant.SSO_PAGE_LOGIN
                     + "?redirect=" + request.getRequestURL());
             //返回false
             return false;

@@ -1,3 +1,9 @@
+var URLS = {
+    server_url: "http://localhost:8082",
+    web_url: "http://localhost:8080",
+    sso_url: "http://localhost:8081"
+};
+
 var PAGE = {
     goReg: function () {
         window.location.href = "/signup";
@@ -12,10 +18,6 @@ var PAGE = {
 
 // 用户邮件验证
 var EMAIL = {
-    param: {
-        // 系统的url
-        surl: "http://localhost:8081/user"
-    },
     /**
      * 检测输入
      */
@@ -31,7 +33,7 @@ var EMAIL = {
         // 检查信息是否重复
         $.ajax({
             type: 'get',
-            url: this.param.surl + "/check/" + $("#umail").val() + "/3",
+            url: URLS.sso_url + "/user/check/" + $("#umail").val() + "/3",
             success: function (data) {
                 if (data.status === 200) {
                     EMAIL.doSendEmail();
@@ -51,7 +53,7 @@ var EMAIL = {
 
         $.ajax({
             method: 'get',
-            url: this.param.surl + "/sendActiveCode?email=" + email,
+            url: URLS.sso_url + "/user/sendActiveCode?email=" + email,
             data: email,
             cache: false,
             processData: false,
@@ -87,10 +89,6 @@ var EMAIL = {
 
 // 用户注册
 var REG = {
-    param: {
-        // 系统的url
-        surl: "http://localhost:8081/user"
-    },
     /**
      * 检测输入
      */
@@ -100,7 +98,7 @@ var REG = {
     doSubmit: function () {
         $.ajax({
             method: 'post',
-            url: this.param.surl + "/register",
+            url: URLS + "/user/register",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(getFormData($("#regForm"))),
             dataType: 'json',
@@ -127,10 +125,6 @@ var REG = {
 
 // 用户登录
 var LOGIN = {
-    param: {
-        // 系统的url
-        surl: "http://localhost:8081/user"
-    },
     /**
      * 检测输入
      */
@@ -140,7 +134,7 @@ var LOGIN = {
     doSubmit: function () {
         $.ajax({
             type: 'post',
-            url: this.param.surl + "/doLogin",
+            url: URLS + "/user/doLogin",
             data: JSON.stringify(getFormData($("#loginForm"))),
             dataType: 'json',
             contentType: "application/json;charset=UTF-8"

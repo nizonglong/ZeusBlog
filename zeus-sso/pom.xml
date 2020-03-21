@@ -20,14 +20,9 @@
 		<!--引用的module-->
 		<dependency>
 			<groupId>com.nzl</groupId>
-			<artifactId>zeus-service</artifactId>
+			<artifactId>zeus-server</artifactId>
 			<version>0.1</version>
 			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
 		<dependency>
@@ -42,13 +37,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- Redis-Jedis -->
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-		</dependency>
-
 
 	</dependencies>
 

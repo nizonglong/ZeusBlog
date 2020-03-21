@@ -66,4 +66,26 @@ public class Constant {
      */
     public static final Integer PASSWORD_MAX_LEN = 16;
 
+    /**
+     * 默认 page size 15
+     */
+    public static final int DEFAULT_PAGE_SIZE = 15;
+
+    /**
+     * ZEUS_TOKEN
+     */
+    public static final String ZEUS_TOKEN = "ZEUS_TOKEN";
+
+    /**
+     * SSO 一些通用路径
+     */
+    public static final String SSO_BASE_URL = "http://localhost:8081";
+    public static final String SSO_USER_TOKEN = "/user/token/";
+    public static final String SSO_PAGE_LOGIN = "/login";
+
+
+    /**
+     * REDIS_ARTICLE_KEY
+     */
+    public static final String REDIS_ARTICLE_KEY = "REDIS_ARTICLE_KEY";
 }

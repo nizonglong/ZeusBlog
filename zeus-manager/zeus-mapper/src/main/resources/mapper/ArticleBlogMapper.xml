@@ -10,9 +10,11 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
   </resultMap>
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nzl.model.pojo.ArticleBlog">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+
   <sql id="Base_Column_List">
     article_blog_id, title, blog_time, uid, blog_type_id, gmt_modified, gmt_create
   </sql>
@@ -20,5 +22,11 @@
     content
   </sql>
 
+  <select id="getPageArticles" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from article_blog
+    order by blog_time desc
+  </select>
 
 </mapper>

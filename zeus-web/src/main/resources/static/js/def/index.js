@@ -1,27 +1,28 @@
+var URLS = {
+    server_url: "http://localhost:8082",
+    web_url: "http://localhost:8080",
+    sso_url: "http://localhost:8081"
+};
+
 var LOAD = {
-    param: {
-        // 系统的url
-        surl: "http://localhost:8081"
-    },
     loadInitData: function (pageIndex) {
         $("#insert").html("");
         $("#pages").html("");
-        // 加载index的Article初始信息
+        // 加载index的Article初始信息, 默认初始加载200条信息
         $.ajax({
             type: 'get',
-            url: this.param.surl + "/main/getPageArticle?pageIndex=" + pageIndex,
+            url: URLS.server_url + "/article/timeArticles?index=" + pageIndex+"&pageSize=200",
             success: function (data) {
                 if (data.status === 200) {
                     var json = data.data;
-                    console.log(data);
                     LOAD.initArticle(json.list);
                     LOAD.loadPageNum(json);
                 } else {
-                    alert("获取文章失败！");
+                    alert(data.msg);
                 }
             },
             error: function () {
-                alert("Ajax 异常");
+                alert(data.msg);
             }
         });
 
@@ -29,34 +30,34 @@ var LOAD = {
         // 加载index的Author初始信息
         $.ajax({
             type: 'get',
-            url: this.param.surl + "/main/getAuthor",
+            url: URLS.server_url + "/user/getUser",
             success: function (data) {
                 if (data.status === 200) {
-                    LOAD.loadAuthor(data.data);
+                    LOAD.loadUser(data.data);
                 } else {
-                    alert("获取用户信息失败！");
+                    alert(data.msg);
                 }
             },
             error: function () {
-                alert("Ajax 异常");
+                alert(data.msg);
             }
         });
 
         // 加载用户自定义标签
-        $.ajax({
-            type: 'get',
-            url: this.param.surl + "/main/getUserTag",
-            success: function (data) {
-                if (data.status === 200) {
-                    LOAD.loadUserTag(data.data);
-                } else {
-                    alert("获取用户自定义标签失败！");
-                }
-            },
-            error: function () {
-                alert("Ajax 异常");
-            }
-        });
+        // $.ajax({
+        //     type: 'get',
+        //     url: this.param.surl + "/main/getUserTag",
+        //     success: function (data) {
+        //         if (data.status === 200) {
+        //             LOAD.loadUserTag(data.data);
+        //         } else {
+        //             alert("获取用户自定义标签失败！");
+        //         }
+        //     },
+        //     error: function () {
+        //         alert("Ajax 异常");
+        //     }
+        // });
     },
     initArticle: function (articles) {
         $.each(articles, function (index, article) {
@@ -76,16 +77,16 @@ var LOAD = {
         });
 
     },
-    loadAuthor: function (author) {
+    loadUser: function (user) {
 
-        $("#uname").html("<a href='/page/user'>" + author.username + "</a>");
-        $("#introduce").html(author.introduction);
+        $("#uname").html("<a href='/page/user'>" + user.username + "</a>");
+        $("#introduce").html(user.introduction);
     },
-    loadUserTag: function (userTags) {
-        $.each(userTags, function (index, userTag) {
-            $("#utag").append("<a href=\"\" class=\"blog-tag\">" + userTag.name + "</a>");
-        });
-    },
+    // loadUserTag: function (userTags) {
+    //     $.each(userTags, function (index, userTag) {
+    //         $("#utag").append("<a href=\"\" class=\"blog-tag\">" + userTag.name + "</a>");
+    //     });
+    // },
     loadPageNum: function (json) {
         // 头
         if (json.hasPreviousPage) {

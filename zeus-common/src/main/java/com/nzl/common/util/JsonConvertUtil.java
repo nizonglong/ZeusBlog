@@ -1,8 +1,7 @@
 package com.nzl.common.util;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import lombok.NoArgsConstructor;
 import com.alibaba.fastjson.JSONObject;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: nizonglong
@@ -22,7 +21,7 @@ public class JsonConvertUtil {
     /**
      * Object 转 JSON
      */
-    public static <T> String objectToJson(T t){
+    public static <T> String objectToJson(T t) {
         return JSONObject.toJSONString(t);
     }
 }

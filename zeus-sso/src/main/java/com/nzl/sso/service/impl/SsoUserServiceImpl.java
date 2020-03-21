@@ -2,6 +2,7 @@
 package com.nzl.sso.service.impl;
 
 import com.nzl.common.constant.Constant;
+import com.nzl.common.constant.MailConstant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.service.impl.BaseServiceImpl;
 import com.nzl.common.util.AesCipherUtil;
@@ -10,7 +11,6 @@ import com.nzl.common.util.JsonUtils;
 import com.nzl.common.util.VerifyUtil;
 import com.nzl.dao.UserMapper;
 import com.nzl.model.dto.UserDto;
-import com.nzl.server.common.ServerConstant;
 import com.nzl.server.util.MailUtil;
 import com.nzl.sso.service.SsoUserService;
 import com.nzl.sso.util.JedisUtil;
@@ -81,9 +81,9 @@ public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoU
         try {
             // 生成验证码，加入redis
             String code = VerifyUtil.getRandonString(6);
-            JedisUtil.setObject(Constant.PREFIX_REGISTER_CODE + email, code, ServerConstant.TIME_10_MINS);
+            JedisUtil.setObject(Constant.PREFIX_REGISTER_CODE + email, code, MailConstant.TIME_10_MINS);
             // 发送邮件
-            mailUtil.singleHtmlSend(email, ServerConstant.REGISTER_SUBJECT, ServerConstant.registerContent(email, code));
+            mailUtil.singleHtmlSend(email, MailConstant.REGISTER_SUBJECT, MailConstant.registerContent(email, code));
         } catch (MessagingException e) {
             e.printStackTrace();
             return ZeusResponseBean.ok("验证码发送失败");
