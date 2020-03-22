@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,7 +17,8 @@ public class ArticleBlog implements Serializable {
     /**
      * 博客id
      */
-    private Long articleBlogId;
+    @Id
+    private String articleBlogId;
 
     /**
      * 博客标题

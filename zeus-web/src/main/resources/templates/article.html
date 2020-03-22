@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title th:text="${article.title}"></title>
+    <title></title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="icon" type="image/png" href="../../static/i/favicon.png">
@@ -23,7 +23,7 @@
 
 </head>
 
-<body id="blog-article-sidebar" onload="showMarkdown()">
+<body id="blog-article-sidebar" onload="ARTICLE.afterInitDetail();">
 
 <!-- header start -->
 <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
@@ -40,10 +40,10 @@
     <div class="am-u-sm-12">
         <article class="am-article blog-article-p">
             <div class="am-article-hd">
-                <h1 class="am-article-title blog-text-center" th:text="${article.title}"></h1>
+                <h1 class="am-article-title blog-text-center"><span id="article-title222"></span></h1>
             </div>
             <div class="am-article-bd">
-                <input type="hidden" th:id="bc" th:value="${article.content}">
+                <input type="hidden" id="bc" value="content">
                 <img src="../../static/i/f17.jpg" alt="" class="blog-entry-img blog-article-margin">
                 <div id="blog-content"></div>
             </div>
@@ -62,11 +62,11 @@
         <hr>
         <div class="am-g blog-author blog-article-margin">
             <div class="am-u-sm-3 am-u-md-3 am-u-lg-2">
-                <img th:src="${author.getHeadPortraitUrl()}" alt="" class="blog-author-img am-circle">
+                <img src="" alt="" class="blog-author-img am-circle">
             </div>
             <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
-                <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color" th:text="${author.getUsername()}"></span></h3>
-                <p th:text="${author.getIntroduction()}"></p>
+                <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color" th:text="Username"></span></h3>
+                <p th:text="getIntroduction"></p>
             </div>
         </div>
         <hr>
@@ -74,10 +74,10 @@
         <div class="am-g blog-author blog-article-margin">
             <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
                 <h3>
-                    <span> &nbsp;</span><span class="blog-color" th:text="${author.getUsername()}"></span>
-                    <span> &nbsp;</span><span th:id="stime" th:text="${#calendars.format(author.getJoinTime(),'yyyy-MM-dd hh:mm:ss')}"></span>
+                    <span> &nbsp;</span><span class="blog-color" th:text="getUsername"></span>
+                    <span> &nbsp;</span><span th:id="stime" th:text="2020-01-03"></span>
                 </h3>
-                <p th:text="${author.getIntroduction()}"></p>
+                <p th:text="getIntroduction"></p>
             </div>
         </div>
 
@@ -123,7 +123,6 @@
 
 <!--markdown-->
 <script src="../../static/js/marked/marked.min.js"></script>
-<script src="../../static/js/def/article-show.js"></script>
 
 <script src="../../static/laydate/laydate.js"></script>
 <script>
@@ -131,5 +130,8 @@
         elem: '#stime'
     });
 </script>
+
+
+<script src="../static/js/def/article.js"></script>
 </body>
 </html>

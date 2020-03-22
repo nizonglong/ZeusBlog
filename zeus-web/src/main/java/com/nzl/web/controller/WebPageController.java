@@ -15,4 +15,10 @@ public class WebPageController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/articlep")
+    public String articlep() {
+        return "article";
+    }
+
 }

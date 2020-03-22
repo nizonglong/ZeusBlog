@@ -20,4 +20,11 @@ public interface ServerArticleService extends IBaseService<ArticleDto> {
      * @return
      */
     ZeusResponseBean getPageArticles(int index, int pageSize);
+
+    /**
+     * 根据博客id获取博客内容
+     * @param id
+     * @return
+     */
+    ZeusResponseBean getArticleById(String id);
 }

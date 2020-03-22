@@ -1,17 +1,17 @@
-var URLS = {
+const URLS = {
     server_url: "http://localhost:8082",
     web_url: "http://localhost:8080",
     sso_url: "http://localhost:8081"
 };
 
-var LOAD = {
+const LOAD = {
     loadInitData: function (pageIndex) {
         $("#insert").html("");
         $("#pages").html("");
         // 加载index的Article初始信息, 默认初始加载200条信息
         $.ajax({
             type: 'get',
-            url: URLS.server_url + "/article/timeArticles?index=" + pageIndex+"&pageSize=200",
+            url: URLS.server_url + "/article/timeArticles?index=" + pageIndex + "&pageSize=200",
             success: function (data) {
                 if (data.status === 200) {
                     var json = data.data;
@@ -27,10 +27,10 @@ var LOAD = {
         });
 
 
-        // 加载index的Author初始信息
+        // 加载index的User初始信息
         $.ajax({
             type: 'get',
-            url: URLS.server_url + "/user/getUser",
+            url: URLS.web_url + "/user/getUser",
             success: function (data) {
                 if (data.status === 200) {
                     LOAD.loadUser(data.data);
@@ -69,7 +69,7 @@ var LOAD = {
                 "                <span><a href=\"\" class=\"blog-color\">article &nbsp;</a></span>\n" +
                 "                <span>  &nbsp;</span>\n" +
                 "                <span> </span>\n" +
-                "                <h1><a href=\"/article/detail/" + article.articleBlogId + "\">" + article.title + "</a></h1>\n" +
+                "                <h1><a href=\"javascript:void(0);\" onclick=\"ARTICLE.goDetail(1)\">" + article.title + "</a></h1>\n" +
                 "                <p>" + article.digest + "</p>\n" +
                 "                <p><a href=\"\" class=\"blog-continue\">continue reading</a></p>\n" +
                 "            </div>\n" +

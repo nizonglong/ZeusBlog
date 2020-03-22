@@ -1,6 +1,10 @@
 package com.nzl.model.dto;
 
 import com.nzl.model.pojo.ArticleBlog;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Table;
 
 /**
  * @author: nizonglong
@@ -8,5 +12,8 @@ import com.nzl.model.pojo.ArticleBlog;
  * @desc:
  * @version: 0.1
  **/
+@Getter
+@Setter
+@Table(name = "article_blog")
 public class ArticleDto extends ArticleBlog {
 }

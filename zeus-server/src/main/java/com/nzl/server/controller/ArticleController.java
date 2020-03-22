@@ -2,8 +2,11 @@ package com.nzl.server.controller;
 
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
+import com.nzl.common.util.StringUtil;
 import com.nzl.server.service.ServerArticleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +38,12 @@ public class ArticleController {
         return articleService.getPageArticles(index,pageSize);
     }
 
-
+    @GetMapping("/detail/{id}")
+    public ZeusResponseBean getArticleDetail(@PathVariable String id) {
+        if (StringUtil.isBlank(id)) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "blog id 不能为空");
+        }
+        return articleService.getArticleById(id);
+    }
 
 }
