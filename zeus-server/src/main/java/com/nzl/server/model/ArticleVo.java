@@ -23,6 +23,4 @@ public class ArticleVo {
     private UserDto author;
 
     private List<CommentDto> comment;
-
-    private List<ReplyDto> reply;
 }

@@ -17,6 +17,15 @@ import javax.persistence.Transient;
 @Setter
 @Table(name = "reply_comment")
 public class ReplyDto extends ReplyComment {
+    /**
+     * 回复人的用户名
+     */
     @Transient
     private String username;
+
+    /**
+     * 被回复人的用户名
+     */
+    @Transient
+    private String replyUsername;
 }

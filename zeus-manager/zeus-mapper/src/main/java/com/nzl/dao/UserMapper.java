@@ -38,4 +38,11 @@ public interface UserMapper extends Mapper<UserDto> {
      */
     String getUsernameByUid(String uid);
 
+    /**
+     * 根据replyId获得用户名
+     * @param replyId
+     * @return
+     */
+    String getUsernameByReplyId(Integer replyId);
+
 }

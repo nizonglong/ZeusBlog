@@ -14,6 +14,8 @@ import com.nzl.model.dto.CommentDto;
 import com.nzl.model.dto.ArticleDto;
 import com.nzl.model.dto.ReplyDto;
 import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.ArticleComment;
+import com.nzl.model.pojo.ReplyComment;
 import com.nzl.server.model.ArticleVo;
 import com.nzl.server.service.ServerArticleService;
 import com.nzl.server.util.RedisUtil;
@@ -78,25 +80,69 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
         // 加入缓存Redis
         redisUtil.setObject(Constant.REDIS_ARTICLE_KEY + article.getArticleBlogId(),
                 JsonUtils.objectToJson(article));
-
-        UserDto user = userMapper.selectByPrimaryKey(article.getUid());
-
-        List<CommentDto> comments = commentMapper.selectByArticleId(article.getArticleBlogId());
-//        List<CommentDto> commentDtos = new ArrayList<>();
-//        commentDtos.addAll(comments);
-//        for (CommentDto comment: commentDtos) {
-//            comment.setUsername(userMapper.getUsernameByUid(comment.getUid()));
-//        }
-
-        List<ReplyDto> replies = replyMapper.selectByArticleId(article.getArticleBlogId());
-//        for (ReplyDto reply: replies) {
-//            reply.setUsername(userMapper.getUsernameByUid(reply.getUid()));
-//        }
-
-        ArticleVo articleVo = new ArticleVo(article, user, comments, replies);
+        // 文章作者信息
+        UserDto author = userMapper.selectByPrimaryKey(article.getUid());
+        // 文章评论信息
+        List<ArticleComment> comments = commentMapper.selectByArticleId(article.getArticleBlogId());
+        // 文章的VO类
+        ArticleVo articleVo = new ArticleVo(article, author, getCommentInfo(comments));
 
         return ZeusResponseBean.ok(articleVo);
     }
 
+    /**
+     * 添加用户名到评论里,转换评论信息为必要的输出DTO
+     *
+     * @param comments
+     * @return
+     */
+    private List<CommentDto> getCommentInfo(List<ArticleComment> comments) {
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        for (ArticleComment comment : comments) {
+            // 进行评论信息赋值转换，只添加需要的信息
+            CommentDto commentDto = new CommentDto();
+            commentDto.setArticleCommentId(comment.getArticleCommentId());
+            commentDto.setUid(comment.getUid());
+            commentDto.setArticleBlogId(comment.getArticleBlogId());
+            commentDto.setContent(comment.getContent());
+            commentDto.setCommentTime(comment.getCommentTime());
+            commentDto.setUsername(userMapper.getUsernameByUid(comment.getUid()));
+
+            // 添加回复
+            List<ReplyComment> replies = replyMapper.selectByCommentId(commentDto.getArticleCommentId());
+            commentDto.setReply(getReplyInfo(replies));
+
+            // 添加到LIST
+            commentDtoList.add(commentDto);
+        }
+
+        return commentDtoList;
+    }
+
+    /**
+     * 添加用户名到回复里,转换回复信息为必要的输出DTO
+     * @param replies
+     * @return
+     */
+    private List<ReplyDto> getReplyInfo(List<ReplyComment> replies) {
+        List<ReplyDto> replyDtoList = new ArrayList<>();
+        for (ReplyComment reply : replies) {
+            // 进行评论信息赋值转换，只添加需要的信息
+            ReplyDto replyDto = new ReplyDto();
+            replyDto.setReplyCommentId(reply.getReplyCommentId());
+            replyDto.setReplyId(reply.getReplyId());
+            replyDto.setUid(reply.getUid());
+            replyDto.setArticleCommentId(reply.getArticleCommentId());
+            replyDto.setContent(reply.getContent());
+            replyDto.setTime(reply.getTime());
+            replyDto.setUsername(userMapper.getUsernameByUid(reply.getUid()));
+            replyDto.setReplyUsername(userMapper.getUsernameByReplyId(reply.getReplyId()));
+
+            // 添加到LIST
+            replyDtoList.add(replyDto);
+        }
+
+        return replyDtoList;
+    }
 
 }

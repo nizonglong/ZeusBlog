@@ -1,6 +1,7 @@
 package com.nzl.dao;
 
 import com.nzl.model.dto.CommentDto;
+import com.nzl.model.pojo.ArticleComment;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface ArticleCommentMapper extends Mapper<CommentDto>  {
      * @param articleId
      * @return
      */
-    List<CommentDto> selectByArticleId(Long articleId);
+    List<ArticleComment> selectByArticleId(Long articleId);
 }

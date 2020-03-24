@@ -20,7 +20,7 @@ const ARTICLE = {
             success: function (data) {
                 if (data.status === 200) {
                     ARTICLE.initArticleData(data.data.article);
-                    ARTICLE.initAuthorData(data.data.user);
+                    ARTICLE.initAuthorData(data.data.author);
                     ARTICLE.initCommentData(data.data);
                 } else {
                     alert(data.msg);
@@ -38,29 +38,87 @@ const ARTICLE = {
         $("#article-title").html(article.title);
         $("#article-content").html(article.content);
     },
-    initAuthorData:function (author) {
+    initAuthorData: function (author) {
         $("#author-name").html(author.username);
         $("#author-introduce").html(author.introduction);
     },
-    initCommentData:function (data) {
+    initCommentData: function (data) {
         const comments = data.comment;
-        const replies = data.reply;
+        // 填写评论数量
+        let replyCount = 0;
+        $.each(comments, function (index, comment) {
+            replyCount += comment.reply.length;
+        });
+        const totalComment = comments.length + replyCount;
+        $("#comment-count").html("共有" + totalComment + "条评论");
 
         $.each(comments, function (index, comment) {
+            // 评论内容
+            const commentInfo =
+                "                <li>" +
+                "                    <div class=\"common-box-row layui-row\">" +
+                "                        <div class=\"common-headimg layui-col-md1 layui-col-xs2\">" +
+                "                            <div class=\"commonimg-box\">" +
+                "                                <img src=\"../static/layui/imgs/canreplace/headimg.jpg\">" +
+                "                            </div>" +
+                "                        </div>" +
+                "                        <div class=\"common-info-row layui-col-md11 layui-col-xs10\">" +
+                "                            <div class=\"common-nickname layui-row\">" + comment.commentTime + "<span>" + comment.username + "：</span></div>" +
+                "                            <div class=\"common-text layui-row\">" + comment.content + "</div>" +
+                "                        </div>" +
+                "                    </div>";
+
+            // 评论内的回复
+            let replyInfo = "                    <ul class=\"comment-box\">";
+            // 回复的回复
+            var replyToReplyInfo = "";
+
+            $.each(comment.reply, function (index, reply) {
+                if (reply.replyId == null) {
+                    replyInfo +=
+                        "                        <li>" +
+                        "                            <div class=\"common-box-row layui-row\">" +
+                        "                                <div class=\"common-headimg layui-col-md1 layui-col-xs2\">" +
+                        "                                    <div class=\"commonimg-box\">" +
+                        "                                        <img src=\"../static/layui/imgs/canreplace/headimg.jpg\">" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                                <div class=\"common-info-row layui-col-md11 layui-col-xs10\">" +
+                        "                                    <div class=\"common-nickname layui-row\">" + reply.time + "<span>" + reply.username + "：</span></div>" +
+                        "                                    <div class=\"common-text layui-row\">" + reply.content + "</div>" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                            </div>" +
+                        "                        </li>";
+                }
+
+                if (reply.replyId != null) {
+                    replyToReplyInfo +=
+                        "                        <li>" +
+                        "                            <div class=\"common-box-row layui-row\">" +
+                        "                                <div class=\"common-headimg layui-col-md1 layui-col-xs2\">" +
+                        "                                    <div class=\"commonimg-box\">" +
+                        "                                        <img src=\"../static/layui/imgs/canreplace/headimg.jpg\">" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                                <div class=\"common-info-row layui-col-md11 layui-col-xs10\">" +
+                        "                                    <div class=\"common-nickname layui-row\">" + reply.time + "<span>" + reply.username + "@" + reply.replyUsername + "：</span></div>" +
+                        "                                    <div class=\"common-text layui-row\">" + reply.content + "</div>" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                            </div>" +
+                        "                        </li>";
+                }
+            });
+            replyInfo += replyToReplyInfo;
+            replyInfo += "                    </ul>";
+
+
+            // 添加末尾
+            const endInfo = "                </li>";
+
             $("#comment-list").append(
-                "                <li>\n" +
-                "                    <div class=\"common-box-row layui-row\">\n" +
-                "                        <div class=\"common-headimg layui-col-md1 layui-col-xs2\">\n" +
-                "                            <div class=\"commonimg-box\">\n" +
-                "                                <img src=\"../static/layui/imgs/canreplace/headimg.jpg\">\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                        <div class=\"common-info-row layui-col-md11 layui-col-xs10\">\n" +
-                "                            <div class=\"common-nickname layui-row\">"+comment.commentTime+"<span>"+comment.username+"：</span></div>\n" +
-                "                            <div class=\"common-text layui-row\">"+comment.content+"</div>\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                </li>"
+                commentInfo + replyInfo + endInfo
             );
         });
     }

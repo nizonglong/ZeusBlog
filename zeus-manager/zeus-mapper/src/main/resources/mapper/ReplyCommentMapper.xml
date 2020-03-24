@@ -3,6 +3,7 @@
 <mapper namespace="com.nzl.dao.ReplyCommentMapper">
   <resultMap id="BaseResultMap" type="com.nzl.model.pojo.ReplyComment">
     <id column="reply_comment_id" jdbcType="BIGINT" property="replyCommentId" />
+    <result column="reply_id" jdbcType="INTEGER" property="replyId" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="article_comment_id" jdbcType="BIGINT" property="articleCommentId" />
     <result column="uid" jdbcType="VARCHAR" property="uid" />
@@ -11,18 +12,26 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    reply_comment_id, time, article_comment_id, uid
+    reply_comment_id, time, article_comment_id, uid, reply_id
   </sql>
   <sql id="Blob_Column_List">
     content
   </sql>
 
-  <select id="selectByArticleId" resultMap="BaseResultMap">
+  <select id="selectByCommentId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>,
     <include refid="Blob_Column_List"/>
     from reply_comment
     where article_comment_id = #{commentId}
+  </select>
+
+  <select id="selectByReplyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>,
+    <include refid="Blob_Column_List"/>
+    from reply_comment
+    where reply_id = #{replyId}
   </select>
 
 </mapper>

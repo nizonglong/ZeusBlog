@@ -1,5 +1,6 @@
 package com.nzl.model.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Id;
@@ -21,8 +22,14 @@ public class ReplyComment implements Serializable {
     private Long replyCommentId;
 
     /**
+     * 回复-回复的id
+     */
+    private Integer replyId;
+
+    /**
      * 回复评论时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date time;
 
     /**

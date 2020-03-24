@@ -1,5 +1,6 @@
 package com.nzl.model.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class ArticleBlog implements Serializable {
     /**
      * 发表博客时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date blogTime;
 
     /**

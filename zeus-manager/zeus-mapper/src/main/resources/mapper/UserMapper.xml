@@ -44,11 +44,18 @@
         where email = #{email}
     </select>
 
-    <select id="getUsernameByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="getUsernameByUid" parameterType="java.lang.String" resultType="String">
         select
         username
         from user
         where uid = #{uid}
+    </select>
+
+    <select id="getUsernameByReplyId" parameterType="java.lang.Integer" resultType="String">
+        SELECT username from user
+        where uid = (
+            SELECT uid from reply_comment
+            where reply_comment_id = #{replyId})
     </select>
 
 </mapper>

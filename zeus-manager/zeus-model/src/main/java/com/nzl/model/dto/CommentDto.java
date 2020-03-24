@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.List;
 
 /**
  * @author: nizonglong
@@ -19,4 +20,6 @@ import javax.persistence.Transient;
 public class CommentDto extends ArticleComment {
     @Transient
     private String username;
+
+    private List<ReplyDto> reply;
 }

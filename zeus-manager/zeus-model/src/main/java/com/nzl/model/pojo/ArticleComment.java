@@ -1,5 +1,6 @@
 package com.nzl.model.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ public class ArticleComment implements Serializable {
     /**
      *   评论时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date commentTime;
 
     /**
@@ -38,11 +40,13 @@ public class ArticleComment implements Serializable {
     /**
      *   修改时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date gmtmodified;
 
     /**
      *   创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date gmtcreate;
 
     /**

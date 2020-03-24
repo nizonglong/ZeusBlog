@@ -1,5 +1,6 @@
 package com.nzl.model.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Id;
@@ -47,6 +48,7 @@ public class User implements Serializable {
     /**
      * 用户生日日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;
 
     /**
@@ -62,6 +64,7 @@ public class User implements Serializable {
     /**
      * 用户注册时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date joinTime;
 
     /**
@@ -110,9 +113,5 @@ public class User implements Serializable {
 //        return this.username + this.salt;
 //    }
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 
 }
