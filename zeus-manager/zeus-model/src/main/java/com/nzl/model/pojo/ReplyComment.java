@@ -24,7 +24,7 @@ public class ReplyComment implements Serializable {
     /**
      * 回复-回复的id
      */
-    private Integer replyId;
+    private Long replyId;
 
     /**
      * 回复评论时间

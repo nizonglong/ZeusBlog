@@ -43,6 +43,6 @@ public interface UserMapper extends Mapper<UserDto> {
      * @param replyId
      * @return
      */
-    String getUsernameByReplyId(Integer replyId);
+    String getUsernameByReplyId(Long replyId);
 
 }

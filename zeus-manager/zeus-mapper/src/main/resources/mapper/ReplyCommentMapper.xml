@@ -3,7 +3,7 @@
 <mapper namespace="com.nzl.dao.ReplyCommentMapper">
   <resultMap id="BaseResultMap" type="com.nzl.model.pojo.ReplyComment">
     <id column="reply_comment_id" jdbcType="BIGINT" property="replyCommentId" />
-    <result column="reply_id" jdbcType="INTEGER" property="replyId" />
+    <result column="reply_id" jdbcType="BIGINT" property="replyId" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="article_comment_id" jdbcType="BIGINT" property="articleCommentId" />
     <result column="uid" jdbcType="VARCHAR" property="uid" />

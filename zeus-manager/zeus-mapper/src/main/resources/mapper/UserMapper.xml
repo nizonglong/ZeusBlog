@@ -51,7 +51,7 @@
         where uid = #{uid}
     </select>
 
-    <select id="getUsernameByReplyId" parameterType="java.lang.Integer" resultType="String">
+    <select id="getUsernameByReplyId" parameterType="java.lang.Long" resultType="String">
         SELECT username from user
         where uid = (
             SELECT uid from reply_comment
