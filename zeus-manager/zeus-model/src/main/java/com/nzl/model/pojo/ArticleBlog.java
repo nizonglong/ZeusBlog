@@ -18,7 +18,7 @@ public class ArticleBlog implements Serializable {
      * 博客id
      */
     @Id
-    private String articleBlogId;
+    private Long articleBlogId;
 
     /**
      * 博客标题

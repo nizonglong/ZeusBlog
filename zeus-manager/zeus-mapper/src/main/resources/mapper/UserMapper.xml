@@ -37,12 +37,18 @@
         where #{param} = #{value}
     </select>
 
-    <select id="getUserByEmail" parameterType="com.nzl.model.pojo.User" resultMap="BaseResultMap">
+    <select id="getUserByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user
         where email = #{email}
     </select>
 
+    <select id="getUsernameByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        username
+        from user
+        where uid = #{uid}
+    </select>
 
 </mapper>

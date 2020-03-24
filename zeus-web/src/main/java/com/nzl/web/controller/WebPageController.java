@@ -2,6 +2,7 @@ package com.nzl.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * @author: nizonglong
@@ -16,8 +17,8 @@ public class WebPageController {
         return "index";
     }
 
-    @GetMapping("/articlep")
-    public String articlep() {
+    @GetMapping("/article/{id}")
+    public String detailArticle(@PathVariable String id) {
         return "article";
     }
 

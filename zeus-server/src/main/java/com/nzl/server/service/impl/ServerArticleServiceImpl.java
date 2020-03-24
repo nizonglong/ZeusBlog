@@ -7,14 +7,21 @@ import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.service.impl.BaseServiceImpl;
 import com.nzl.common.util.JsonUtils;
 import com.nzl.dao.ArticleBlogMapper;
+import com.nzl.dao.ArticleCommentMapper;
+import com.nzl.dao.ReplyCommentMapper;
+import com.nzl.dao.UserMapper;
+import com.nzl.model.dto.CommentDto;
 import com.nzl.model.dto.ArticleDto;
+import com.nzl.model.dto.ReplyDto;
+import com.nzl.model.dto.UserDto;
+import com.nzl.server.model.ArticleVo;
 import com.nzl.server.service.ServerArticleService;
 import com.nzl.server.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +35,12 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
 
     @Resource
     private ArticleBlogMapper blogMapper;
+    @Resource
+    private UserMapper userMapper;
+    @Resource
+    private ArticleCommentMapper commentMapper;
+    @Resource
+    private ReplyCommentMapper replyMapper;
 
     @Resource
     RedisUtil redisUtil;
@@ -60,13 +73,29 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
             e.printStackTrace();
         }
 
-        // 没有的话就从数据库提取
+        // 没有Article的话就从数据库提取
         ArticleDto article = blogMapper.selectByPrimaryKey(id);
         // 加入缓存Redis
         redisUtil.setObject(Constant.REDIS_ARTICLE_KEY + article.getArticleBlogId(),
                 JsonUtils.objectToJson(article));
 
-        return ZeusResponseBean.ok(article);
+        UserDto user = userMapper.selectByPrimaryKey(article.getUid());
+
+        List<CommentDto> comments = commentMapper.selectByArticleId(article.getArticleBlogId());
+//        List<CommentDto> commentDtos = new ArrayList<>();
+//        commentDtos.addAll(comments);
+//        for (CommentDto comment: commentDtos) {
+//            comment.setUsername(userMapper.getUsernameByUid(comment.getUid()));
+//        }
+
+        List<ReplyDto> replies = replyMapper.selectByArticleId(article.getArticleBlogId());
+//        for (ReplyDto reply: replies) {
+//            reply.setUsername(userMapper.getUsernameByUid(reply.getUid()));
+//        }
+
+        ArticleVo articleVo = new ArticleVo(article, user, comments, replies);
+
+        return ZeusResponseBean.ok(articleVo);
     }
 
 

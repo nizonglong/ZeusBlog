@@ -21,9 +21,13 @@
     <link rel="stylesheet" href="../../static/css/amazeui.min.css">
     <link rel="stylesheet" href="../../static/css/app.css">
 
+    <link rel="stylesheet" href="../static/layui/plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/layui/css/common.css">
+    <link rel="stylesheet" href="../static/layui/css/mobile.css">
+
 </head>
 
-<body id="blog-article-sidebar" onload="ARTICLE.afterInitDetail();">
+<body id="blog-article-sidebar" onload="ARTICLE.initDetail();">
 
 <!-- header start -->
 <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
@@ -40,12 +44,11 @@
     <div class="am-u-sm-12">
         <article class="am-article blog-article-p">
             <div class="am-article-hd">
-                <h1 class="am-article-title blog-text-center"><span id="article-title222"></span></h1>
+                <h1 class="am-article-title blog-text-center" id="article-title"></h1>
             </div>
             <div class="am-article-bd">
-                <input type="hidden" id="bc" value="content">
                 <img src="../../static/i/f17.jpg" alt="" class="blog-entry-img blog-article-margin">
-                <div id="blog-content"></div>
+                <div id="article-content"></div>
             </div>
         </article>
 
@@ -62,24 +65,36 @@
         <hr>
         <div class="am-g blog-author blog-article-margin">
             <div class="am-u-sm-3 am-u-md-3 am-u-lg-2">
-                <img src="" alt="" class="blog-author-img am-circle">
+                <img src="../static/i/f15.jpg" alt="" class="blog-author-img am-circle">
             </div>
             <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
-                <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color" th:text="Username"></span></h3>
-                <p th:text="getIntroduction"></p>
+                <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color" id="author-name">amazeui</span></h3>
+                <p id="author-introduce"></p>
             </div>
         </div>
         <hr>
 
-        <div class="am-g blog-author blog-article-margin">
-            <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
-                <h3>
-                    <span> &nbsp;</span><span class="blog-color" th:text="getUsername"></span>
-                    <span> &nbsp;</span><span th:id="stime" th:text="2020-01-03"></span>
-                </h3>
-                <p th:text="getIntroduction"></p>
-            </div>
+
+        <!-- Begin Comments -->
+        <div class="comment-list layui-row">
+            <ul id="comment-list">
+                <li>
+                    <div class="common-box-row layui-row">
+                        <div class="common-headimg layui-col-md1 layui-col-xs2">
+                            <div class="commonimg-box">
+                                <img src="../static/layui/imgs/canreplace/headimg.jpg">
+                            </div>
+                        </div>
+                        <div class="common-info-row layui-col-md11 layui-col-xs10">
+                            <div class="common-nickname layui-row">2018-01-18 16:38<span>大BUG：</span></div>
+                            <div class="common-text layui-row">“每个强者都会有背后的辛酸挫折每个强者都会有背后的辛酸挫折”，说的非常好，条理清晰，通俗易懂，我这样的小白一看就懂，希望博主多分享一些类似文章。支持博主。都是按照已经用计算机语言编好的程序来执行的，程序是计算机要执行的指令的集合</div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
         </div>
+        <!-- End Comments -->
 
         <hr>
 
@@ -131,7 +146,11 @@
     });
 </script>
 
+<script src="../static/layui/plugin/layui/layui.js"></script>
+
+<script src="../static/layui/plugin/jquery/jquery-3.3.1.min.js"></script>
 
 <script src="../static/js/def/article.js"></script>
+<script src="../static/js/def/url.js"></script>
 </body>
 </html>

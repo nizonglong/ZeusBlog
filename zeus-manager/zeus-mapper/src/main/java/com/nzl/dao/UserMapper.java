@@ -2,7 +2,6 @@ package com.nzl.dao;
 
 
 import com.nzl.model.dto.UserDto;
-import com.nzl.model.pojo.User;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface UserMapper extends Mapper<UserDto> {
@@ -13,7 +12,7 @@ public interface UserMapper extends Mapper<UserDto> {
      * @param username
      * @return
      */
-    User getUser(String username);
+    UserDto getUser(String username);
 
     /**
      * 动态查询参数
@@ -30,7 +29,13 @@ public interface UserMapper extends Mapper<UserDto> {
      * @param email
      * @return
      */
-    User getUserByEmail(String email);
+    UserDto getUserByEmail(String email);
 
+    /**
+     * 通过uid获取用户名称
+     * @param uid
+     * @return
+     */
+    String getUsernameByUid(String uid);
 
 }
