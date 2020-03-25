@@ -10,16 +10,18 @@ import com.nzl.dao.ArticleBlogMapper;
 import com.nzl.dao.ArticleCommentMapper;
 import com.nzl.dao.ReplyCommentMapper;
 import com.nzl.dao.UserMapper;
-import com.nzl.model.dto.CommentDto;
 import com.nzl.model.dto.ArticleDto;
+import com.nzl.model.dto.CommentDto;
 import com.nzl.model.dto.ReplyDto;
 import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.ArticleBlog;
 import com.nzl.model.pojo.ArticleComment;
 import com.nzl.model.pojo.ReplyComment;
 import com.nzl.server.model.ArticleVo;
 import com.nzl.server.service.ServerArticleService;
 import com.nzl.server.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,8 +53,8 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
     public ZeusResponseBean getPageArticles(int index, int pageSize) {
 
         PageHelper.startPage(index, Constant.DEFAULT_PAGE_SIZE);
-        List<ArticleDto> articles = blogMapper.getPageArticles(index, pageSize);
-        PageInfo<ArticleDto> pageInfo = new PageInfo<>(articles);
+        List<ArticleBlog> articles = blogMapper.getPageArticles(index, pageSize);
+        PageInfo<ArticleDto> pageInfo = new PageInfo<>(getArticleInfo(articles));
 
         return ZeusResponseBean.ok(pageInfo);
     }
@@ -101,11 +103,8 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
         for (ArticleComment comment : comments) {
             // 进行评论信息赋值转换，只添加需要的信息
             CommentDto commentDto = new CommentDto();
-            commentDto.setArticleCommentId(comment.getArticleCommentId());
-            commentDto.setUid(comment.getUid());
-            commentDto.setArticleBlogId(comment.getArticleBlogId());
-            commentDto.setContent(comment.getContent());
-            commentDto.setCommentTime(comment.getCommentTime());
+            // 拷贝数据
+            BeanUtils.copyProperties(comment, commentDto);
             commentDto.setUsername(userMapper.getUsernameByUid(comment.getUid()));
 
             // 添加回复
@@ -129,12 +128,8 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
         for (ReplyComment reply : replies) {
             // 进行评论信息赋值转换，只添加需要的信息
             ReplyDto replyDto = new ReplyDto();
-            replyDto.setReplyCommentId(reply.getReplyCommentId());
-            replyDto.setReplyId(reply.getReplyId());
-            replyDto.setUid(reply.getUid());
-            replyDto.setArticleCommentId(reply.getArticleCommentId());
-            replyDto.setContent(reply.getContent());
-            replyDto.setTime(reply.getTime());
+            // 拷贝数据
+            BeanUtils.copyProperties(reply, replyDto);
             replyDto.setUsername(userMapper.getUsernameByUid(reply.getUid()));
             replyDto.setReplyUsername(userMapper.getUsernameByReplyId(reply.getReplyId()));
 
@@ -145,4 +140,24 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
         return replyDtoList;
     }
 
+    /**
+     * 转换Article信息添加作者username
+     * @param articles
+     * @return
+     */
+    private List<ArticleDto> getArticleInfo(List<ArticleBlog> articles) {
+        List<ArticleDto> articleDtoList = new ArrayList<>();
+        for (ArticleBlog article : articles) {
+            // 进行评论信息赋值转换，只添加需要的信息
+            ArticleDto articleDto = new ArticleDto();
+            // 拷贝数据
+            BeanUtils.copyProperties(article, articleDto);
+            articleDto.setAuthorName(userMapper.getUsernameByUid(article.getUid()));
+
+            // 添加到LIST
+            articleDtoList.add(articleDto);
+        }
+
+        return articleDtoList;
+    }
 }

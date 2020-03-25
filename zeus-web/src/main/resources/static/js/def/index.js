@@ -60,10 +60,10 @@ const LOAD = {
                 "                <img src=\"../static/i/f10.jpg\" alt=\"\" class=\"am-u-sm-12\">\n" +
                 "            </div>\n" +
                 "            <div class=\"am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text\">\n" +
-                "                <span><a href=\"\" class=\"blog-color\">article &nbsp;</a></span>\n" +
-                "                <span>  &nbsp;</span>\n" +
-                "                <span> </span>\n" +
-                "                <h1><a href=\"javascript:void(0);\" onclick='ARTICLE.goDetail("+article.articleBlogId+")'>" + article.title + "</a></h1>\n" +
+                "                <span><a href=\"javascript:void()\" class=\"blog-color\">article &nbsp;</a></span>\n" +
+                "                <span>  &nbsp;@" + article.authorName + "</span>\n" +
+                "                <span> "+article.blogTime+"</span>\n" +
+                "                <h1><a href=\"javascript:void(0);\" onclick='ARTICLE.goDetail(" + article.articleBlogId + ")'>" + article.title + "</a></h1>\n" +
                 "                <p>" + article.digest + "</p>\n" +
                 "                <p><a href=\"\" class=\"blog-continue\">continue reading</a></p>\n" +
                 "            </div>\n" +

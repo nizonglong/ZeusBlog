@@ -6,6 +6,7 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="blog_time" jdbcType="TIMESTAMP" property="blogTime" />
     <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
     <result column="blog_type_id" jdbcType="TINYINT" property="blogTypeId" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
@@ -16,7 +17,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    article_blog_id, title, blog_time, uid, blog_type_id, gmt_modified, gmt_create
+    article_blog_id, title, blog_time, uid, blog_type_id, digest, gmt_modified, gmt_create
   </sql>
   <sql id="Blob_Column_List">
     content

@@ -95,21 +95,21 @@ public class JwtUtil {
     /**
      * 生成签名
      *
-     * @param username 帐号
+     * @param email 帐号
      * @return java.lang.String 返回加密的Token
      * @author nizonglong
      * @date 2018/8/31 9:07
      */
-    public static String sign(String username, String currentTimeMillis) {
+    public static String sign(String email, String currentTimeMillis) {
         try {
             // 帐号加JWT私钥加密
-            String secret = username + Base64ConvertUtil.decode(encryptJWTKey);
+            String secret = email + Base64ConvertUtil.decode(encryptJWTKey);
             // 此处过期时间是以毫秒为单位，所以乘以1000
             Date date = new Date(System.currentTimeMillis() + Long.parseLong(accessTokenExpireTime) * 1000);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // 附带account帐号信息
             return JWT.create()
-                    .withClaim("username", username)
+                    .withClaim("email", email)
                     .withClaim("currentTimeMillis", currentTimeMillis)
                     .withExpiresAt(date)
                     .sign(algorithm);

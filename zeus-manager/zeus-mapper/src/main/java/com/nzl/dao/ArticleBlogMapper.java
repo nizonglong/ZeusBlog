@@ -2,6 +2,7 @@ package com.nzl.dao;
 
 import com.nzl.model.dto.ArticleDto;
 import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.ArticleBlog;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface ArticleBlogMapper extends Mapper<ArticleDto> {
      * @param pageSize
      * @return
      */
-    List<ArticleDto> getPageArticles(int startRow, int pageSize);
+    List<ArticleBlog> getPageArticles(int startRow, int pageSize);
 
 }

@@ -1,0 +1,18 @@
+spring:
+  #邮箱配置
+  mail:
+    host: smtp.163.com
+    username: zeusblog@163.com
+    #163邮箱的授权码
+    password: TPGKTSFRPSZGLYHL
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+
+

@@ -18,6 +18,7 @@
 
     <modules>
         <module>zeus-model</module>
+        <module>zeus-admin</module>
         <module>zeus-mapper</module>
         <module>zeus-service</module>
     </modules>

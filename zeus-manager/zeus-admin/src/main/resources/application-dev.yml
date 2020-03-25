@@ -1,0 +1,43 @@
+server:
+  port: 8083
+
+spring:
+  profiles:
+    include: mysql,redis,email
+
+
+  # 配置静态资源文件路径
+  resources:
+    static-locations: ["/templates/","/resources/","/static/","/public/"]
+
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: utf-8
+    mode: html
+    prefix: classpath:/templates/
+    suffix: .html
+
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 100MB
+
+  mvc:
+    static-path-pattern: /**
+    throw-exception-if-no-handler-found: true
+
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+
+
+logging:
+  level:
+    com.neo.mapper: DEBUG
+
+

@@ -1,10 +1,10 @@
-var URLS = {
+const URLS = {
     server_url: "http://localhost:8082",
     web_url: "http://localhost:8080",
     sso_url: "http://localhost:8081"
 };
 
-var PAGE = {
+const PAGE = {
     goReg: function () {
         window.location.href = "/signup";
     },
@@ -88,7 +88,7 @@ var EMAIL = {
 };
 
 // 用户注册
-var REG = {
+const REG = {
     /**
      * 检测输入
      */
@@ -124,7 +124,7 @@ var REG = {
 };
 
 // 用户登录
-var LOGIN = {
+const LOGIN = {
     /**
      * 检测输入
      */

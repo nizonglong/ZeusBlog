@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author: nizonglong
@@ -16,4 +17,6 @@ import javax.persistence.Table;
 @Setter
 @Table(name = "article_blog")
 public class ArticleDto extends ArticleBlog {
+    @Transient
+    private String authorName;
 }
