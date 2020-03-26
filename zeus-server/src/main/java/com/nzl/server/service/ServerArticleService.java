@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public interface ServerArticleService extends IBaseService<ArticleDto> {
     /**
      * 分页获取 Article
+     *
      * @param index
      * @param pageSize
      * @return
@@ -23,8 +24,17 @@ public interface ServerArticleService extends IBaseService<ArticleDto> {
 
     /**
      * 根据博客id获取博客内容
+     *
      * @param id
      * @return
      */
     ZeusResponseBean getArticleById(String id);
+
+    /**
+     * 新增文章
+     *
+     * @param articleDto
+     * @return
+     */
+    ZeusResponseBean addArticle(ArticleDto articleDto);
 }

@@ -141,6 +141,7 @@ public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoU
 
             //添加写cookie的逻辑，cookie的有效期是关闭浏览器就失效
             CookieUtils.setCookie(request, response, Constant.ZEUS_TOKEN, token);
+            CookieUtils.setCookie(request, response, Constant.ZEUS_UID, userDtoTemp.getUid());
 
             response.setHeader("Authorization", token);
             response.setHeader("Access-Control-Expose-Headers", "Authorization");

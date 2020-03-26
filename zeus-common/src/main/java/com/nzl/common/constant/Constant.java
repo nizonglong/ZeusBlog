@@ -77,6 +77,11 @@ public class Constant {
     public static final String ZEUS_TOKEN = "ZEUS_TOKEN";
 
     /**
+     * ZEUS_UID
+     */
+    public static final String ZEUS_UID = "ZEUS_UID";
+
+    /**
      * SSO 一些通用路径
      */
     public static final String SSO_BASE_URL = "http://localhost:8081";

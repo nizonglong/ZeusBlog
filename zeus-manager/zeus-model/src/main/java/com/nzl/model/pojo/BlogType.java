@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 @Getter
 @ToString
 @NoArgsConstructor
+@Table(name = "blog_type")
 public class BlogType implements Serializable {
     /**
      * 课程小类id

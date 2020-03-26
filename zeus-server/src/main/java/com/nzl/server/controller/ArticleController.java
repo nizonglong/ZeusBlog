@@ -3,12 +3,10 @@ package com.nzl.server.controller;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.StringUtil;
+import com.nzl.model.dto.ArticleDto;
 import com.nzl.server.service.ServerArticleService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -27,6 +25,7 @@ public class ArticleController {
 
     /**
      * 按照时间倒序获取 Article
+     *
      * @return
      */
     @GetMapping("/timeArticles")
@@ -35,9 +34,15 @@ public class ArticleController {
             pageSize = Constant.DEFAULT_PAGE_SIZE;
         }
 
-        return articleService.getPageArticles(index,pageSize);
+        return articleService.getPageArticles(index, pageSize);
     }
 
+    /**
+     * 获取文章详情
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/detail/{id}")
     public ZeusResponseBean getArticleDetail(@PathVariable String id) {
         if (StringUtil.isBlank(id)) {
@@ -46,4 +51,10 @@ public class ArticleController {
         return articleService.getArticleById(id);
     }
 
+
+    @PostMapping("/new")
+    public ZeusResponseBean addArticle(@RequestBody ArticleDto articleDto) {
+
+        return articleService.addArticle(articleDto);
+    }
 }

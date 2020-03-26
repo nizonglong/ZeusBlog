@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.service.impl.BaseServiceImpl;
+import com.nzl.common.util.IDUtils;
 import com.nzl.common.util.JsonUtils;
 import com.nzl.dao.ArticleBlogMapper;
 import com.nzl.dao.ArticleCommentMapper;
@@ -19,13 +20,16 @@ import com.nzl.model.pojo.ArticleComment;
 import com.nzl.model.pojo.ReplyComment;
 import com.nzl.server.model.ArticleVo;
 import com.nzl.server.service.ServerArticleService;
+import com.nzl.server.service.ServerUserService;
 import com.nzl.server.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +49,8 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
     private ArticleCommentMapper commentMapper;
     @Resource
     private ReplyCommentMapper replyMapper;
+    @Resource
+    private ServerUserService userService;
 
     @Resource
     RedisUtil redisUtil;
@@ -92,6 +98,23 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
         return ZeusResponseBean.ok(articleVo);
     }
 
+    @Override
+    public ZeusResponseBean addArticle(ArticleDto articleDto) {
+        try {
+            // 增加其他内容
+            articleDto.setArticleBlogId(IDUtils.genItemId());
+
+            articleDto.setBlogTime(new Date());
+            articleDto.setGmtCreate(new Date());
+            articleDto.setGmtModified(new Date());
+
+            blogMapper.insert(articleDto);
+        } catch (Exception e) {
+            return ZeusResponseBean.build(HttpStatus.INTERNAL_SERVER_ERROR.value(), "文章新增失败!");
+        }
+        return ZeusResponseBean.ok("文章新增成功！");
+    }
+
     /**
      * 添加用户名到评论里,转换评论信息为必要的输出DTO
      *
@@ -120,6 +143,7 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
 
     /**
      * 添加用户名到回复里,转换回复信息为必要的输出DTO
+     *
      * @param replies
      * @return
      */
@@ -142,6 +166,7 @@ public class ServerArticleServiceImpl extends BaseServiceImpl<ArticleDto> implem
 
     /**
      * 转换Article信息添加作者username
+     *
      * @param articles
      * @return
      */

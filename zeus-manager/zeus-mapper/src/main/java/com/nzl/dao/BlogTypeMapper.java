@@ -1,5 +1,8 @@
 package com.nzl.dao;
 
-public interface BlogTypeMapper {
+import com.nzl.model.dto.TypeDto;
+import tk.mybatis.mapper.common.Mapper;
+
+public interface BlogTypeMapper extends Mapper<TypeDto> {
 
 }
