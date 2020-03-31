@@ -1,8 +1,6 @@
 package com.nzl.server.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
-import com.nzl.common.service.IBaseService;
-import com.nzl.model.dto.UserDto;
 
 /**
  * @author: nizonglong
@@ -10,7 +8,7 @@ import com.nzl.model.dto.UserDto;
  * @desc:
  * @version: 0.1
  **/
-public interface ServerUserService extends IBaseService<UserDto> {
+public interface ServerUserService {
     /**
      * 根据token获取用户信息
      *

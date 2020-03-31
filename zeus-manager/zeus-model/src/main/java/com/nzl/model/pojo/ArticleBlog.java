@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @Getter
 @ToString
 @NoArgsConstructor
+@Table(name = "article_blog")
 public class ArticleBlog implements Serializable {
     /**
      * 博客id
@@ -45,7 +47,7 @@ public class ArticleBlog implements Serializable {
     /**
      * 博客状态：草稿，发布
      */
-    private String blogStatus;
+    private Integer blogStatus;
 
     /**
      * 修改时间

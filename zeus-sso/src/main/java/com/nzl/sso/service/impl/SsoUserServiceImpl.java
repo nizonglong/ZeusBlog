@@ -4,7 +4,6 @@ package com.nzl.sso.service.impl;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.constant.MailConstant;
 import com.nzl.common.pojo.ZeusResponseBean;
-import com.nzl.common.service.impl.BaseServiceImpl;
 import com.nzl.common.util.AesCipherUtil;
 import com.nzl.common.util.CookieUtils;
 import com.nzl.common.util.JsonUtils;
@@ -36,7 +35,7 @@ import java.util.UUID;
  **/
 @Transactional(rollbackFor = Exception.class)
 @Service
-public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoUserService {
+public class SsoUserServiceImpl implements SsoUserService {
     @Resource
     private UserMapper userMapper;
 
@@ -164,5 +163,10 @@ public class SsoUserServiceImpl extends BaseServiceImpl<UserDto> implements SsoU
 
         //返回用户信息
         return ZeusResponseBean.ok(JsonUtils.jsonToPojo(json, UserDto.class));
+    }
+
+    @Override
+    public UserDto selectOne(UserDto userDto) {
+        return userMapper.selectOne(userDto);
     }
 }

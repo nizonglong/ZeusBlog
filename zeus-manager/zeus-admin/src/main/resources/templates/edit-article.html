@@ -7,7 +7,6 @@
 <link rel="icon" href="../static/images/favicon.ico" type="image/ico">
 <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
 <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
-<meta name="author" content="yinqi">
 <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 <link href="../static/css/materialdesignicons.min.css" rel="stylesheet">
 <!--标签插件-->
@@ -15,7 +14,7 @@
 <link href="../static/css/style.min.css" rel="stylesheet">
 </head>
 
-<body onload="TYPE.getType()">
+<body onload="TYPE.getType();ARTICLE.getEdit()">
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
@@ -228,6 +227,7 @@
               <div class="card-body">
 
                 <form class="row" id="article-form">
+                  <input type="hidden" id="article-id" name="articleBlogId">
 
                   <div class="form-group col-md-12">
                     <label for="title">标题</label>
@@ -268,7 +268,7 @@
                     </div>
                   </div>
                   <div class="form-group col-md-12">
-                    <button type="button" class="btn btn-primary" onclick="ARTICLE.submitArticle()" >确 定</button>
+                    <button type="button" class="btn btn-primary" onclick="ARTICLE.submitArticle('edit')" >确 定</button>
                     <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
                   </div>
                 </form>

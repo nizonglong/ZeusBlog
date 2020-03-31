@@ -19,4 +19,10 @@ import javax.persistence.Transient;
 public class ArticleDto extends ArticleBlog {
     @Transient
     private String authorName;
+
+    @Transient
+    private String typeName;
+
+    @Transient
+    private String status;
 }

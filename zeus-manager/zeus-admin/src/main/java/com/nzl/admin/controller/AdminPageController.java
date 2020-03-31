@@ -30,4 +30,9 @@ public class AdminPageController {
     public String showPage(@PathVariable String page) {
         return page;
     }
+
+    @RequestMapping("edit/{id}")
+    public String edit(@PathVariable String id) {
+        return "edit-article";
+    }
 }

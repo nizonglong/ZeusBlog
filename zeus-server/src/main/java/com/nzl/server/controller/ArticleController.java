@@ -3,10 +3,12 @@ package com.nzl.server.controller;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.StringUtil;
-import com.nzl.model.dto.ArticleDto;
 import com.nzl.server.service.ServerArticleService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -52,9 +54,22 @@ public class ArticleController {
     }
 
 
-    @PostMapping("/new")
-    public ZeusResponseBean addArticle(@RequestBody ArticleDto articleDto) {
+    /**
+     * 获取用户的文章by uid
+     *
+     * @param uid
+     * @return
+     */
+    @GetMapping("/list")
+    public ZeusResponseBean getArticlesByUid(String uid, int index, int pageSize) {
+        if (StringUtil.isBlank(uid)) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "请先登录！");
+        }
 
-        return articleService.addArticle(articleDto);
+        if (pageSize == 0) {
+            pageSize = Constant.DEFAULT_PAGE_SIZE;
+        }
+
+        return articleService.getArticlesByUid(uid, index, pageSize);
     }
 }

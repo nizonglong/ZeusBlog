@@ -13,5 +13,9 @@
     blog_type_id, parent_blog_type_id, blog_type_name, gmt_modified, gmt_create
   </sql>
 
-
+  <select id="getNameById" resultType="String">
+    select blog_type_name
+    from blog_type
+    where blog_type_id = #{typeId}
+  </select>
 </mapper>

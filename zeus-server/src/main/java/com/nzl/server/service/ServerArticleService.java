@@ -1,8 +1,6 @@
 package com.nzl.server.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
-import com.nzl.common.service.IBaseService;
-import com.nzl.model.dto.ArticleDto;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,15 +10,15 @@ import org.springframework.stereotype.Service;
  * @version: 0.1
  **/
 @Service
-public interface ServerArticleService extends IBaseService<ArticleDto> {
+public interface ServerArticleService {
     /**
      * 分页获取 Article
      *
-     * @param index
+     * @param startRow
      * @param pageSize
      * @return
      */
-    ZeusResponseBean getPageArticles(int index, int pageSize);
+    ZeusResponseBean getPageArticles(int startRow, int pageSize);
 
     /**
      * 根据博客id获取博客内容
@@ -31,10 +29,10 @@ public interface ServerArticleService extends IBaseService<ArticleDto> {
     ZeusResponseBean getArticleById(String id);
 
     /**
-     * 新增文章
-     *
-     * @param articleDto
+     * 获取用户发布的文章
+     * @param uid
      * @return
      */
-    ZeusResponseBean addArticle(ArticleDto articleDto);
+    ZeusResponseBean getArticlesByUid(String uid, int startRow, int pageSize);
+
 }

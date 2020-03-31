@@ -2,7 +2,6 @@ package com.nzl.sso.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.model.dto.UserDto;
-import com.nzl.common.service.IBaseService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @desc:
  * @version: 0.1
  **/
-public interface SsoUserService extends IBaseService<UserDto> {
+public interface SsoUserService {
     /**
      * 注册时用于检测数据
      *
@@ -58,4 +57,6 @@ public interface SsoUserService extends IBaseService<UserDto> {
      * @return
      */
     ZeusResponseBean getUserByToken(String token);
+
+    UserDto selectOne(UserDto userDto);
 }
