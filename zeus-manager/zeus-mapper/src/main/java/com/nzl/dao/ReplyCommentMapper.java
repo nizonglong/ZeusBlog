@@ -20,4 +20,11 @@ public interface ReplyCommentMapper extends Mapper<ReplyDto> {
      * @return
      */
     List<ReplyComment> selectByReplyId(Long replyId);
+
+    /**
+     * 根据文章id删除相关回复
+     * @param id
+     * @return
+     */
+    int deleteRepliesByArticleId(Long id);
 }

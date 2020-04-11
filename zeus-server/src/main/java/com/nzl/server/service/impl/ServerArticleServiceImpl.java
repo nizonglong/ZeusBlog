@@ -49,13 +49,15 @@ public class ServerArticleServiceImpl implements ServerArticleService {
     RedisUtil redisUtil;
 
     @Override
-    public ZeusResponseBean getPageArticles(int index, int pageSize) {
-
-        PageHelper.startPage(index, pageSize);
-        List<ArticleBlog> articles = blogMapper.getPageArticles(index, pageSize);
-        PageInfo<ArticleDto> pageInfo = new PageInfo<>(getArticleInfo(articles));
-
-        return ZeusResponseBean.ok(pageInfo);
+    public PageInfo<ArticleDto> getPageArticles(int index, int pageSize) {
+        try {
+            PageHelper.startPage(index, pageSize);
+            List<ArticleBlog> articles = blogMapper.getPageArticles(index, pageSize);
+            return new PageInfo<>(getArticleInfo(articles));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

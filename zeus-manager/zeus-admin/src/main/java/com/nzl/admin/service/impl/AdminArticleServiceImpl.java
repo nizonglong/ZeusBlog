@@ -4,6 +4,8 @@ import com.nzl.admin.service.AdminArticleService;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.IDUtils;
 import com.nzl.dao.ArticleBlogMapper;
+import com.nzl.dao.ArticleCommentMapper;
+import com.nzl.dao.ReplyCommentMapper;
 import com.nzl.model.dto.ArticleDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,10 @@ import java.util.Date;
 public class AdminArticleServiceImpl implements AdminArticleService {
     @Resource
     private ArticleBlogMapper blogMapper;
+    @Resource
+    private ArticleCommentMapper commentMapper;
+    @Resource
+    private ReplyCommentMapper replyMapper;
 
     @Override
     public ZeusResponseBean addArticle(ArticleDto articleDto) {
@@ -55,9 +61,12 @@ public class AdminArticleServiceImpl implements AdminArticleService {
     }
 
     @Override
-    public ZeusResponseBean deleteArticle(String id) {
+    public ZeusResponseBean deleteArticle(Long id) {
         try {
+            // 删除文章，评论，回复
             blogMapper.deleteByPrimaryKey(id);
+            commentMapper.deleteCommentsByArticleId(id);
+            replyMapper.deleteRepliesByArticleId(id);
         } catch (Exception e) {
             return ZeusResponseBean.build(HttpStatus.INTERNAL_SERVER_ERROR.value(), "文章删除失败!");
         }

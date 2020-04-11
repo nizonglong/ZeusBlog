@@ -32,6 +32,7 @@
         select
         <include refid="Base_Column_List"/>
         from article_blog
+        where blog_status = 1
         order by blog_time desc
     </select>
 

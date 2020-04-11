@@ -36,7 +36,7 @@ public class ArticleController {
             pageSize = Constant.DEFAULT_PAGE_SIZE;
         }
 
-        return articleService.getPageArticles(index, pageSize);
+        return ZeusResponseBean.ok(articleService.getPageArticles(index, pageSize));
     }
 
     /**

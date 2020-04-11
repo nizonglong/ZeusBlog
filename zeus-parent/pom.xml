@@ -22,9 +22,9 @@
     <modules>
         <module>../zeus-common</module>
         <module>../zeus-manager</module>
-<!--        <module>../zeus-admin</module>-->
         <module>../zeus-server</module>
         <module>../zeus-sso</module>
+        <module>../zeus-web</module>
     </modules>
 
     <!--全局加载引用-->

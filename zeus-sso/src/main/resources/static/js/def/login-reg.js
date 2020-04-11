@@ -12,7 +12,7 @@ const PAGE = {
         window.location.href = "/login";
     },
     goIndex: function () {
-        window.location.href = "http://localhost:8080/index";
+        window.location.href = URLS.web_url;
     }
 };
 
@@ -23,7 +23,7 @@ var EMAIL = {
      */
     checkInput: function () {
         if ($("#umail").val().length <= 0) {
-            alert("请输入正确邮箱")
+            alert("请输入正确邮箱");
             return false
         }
         return true;
@@ -47,7 +47,7 @@ var EMAIL = {
         });
     },
     doSendEmail: function () {
-        this.timeCount()
+        this.timeCount();
 
         const email = $("#umail").val();
 

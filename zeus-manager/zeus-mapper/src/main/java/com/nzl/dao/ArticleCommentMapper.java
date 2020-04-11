@@ -16,4 +16,11 @@ public interface ArticleCommentMapper extends Mapper<CommentDto>  {
      * @return
      */
     List<ArticleComment> selectByArticleId(Long articleId);
+
+    /**
+     * 根据文章id删除相关评论
+     * @param id
+     * @return
+     */
+    int deleteCommentsByArticleId(Long id);
 }

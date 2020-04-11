@@ -1,6 +1,8 @@
 package com.nzl.server.service;
 
+import com.github.pagehelper.PageInfo;
 import com.nzl.common.pojo.ZeusResponseBean;
+import com.nzl.model.dto.ArticleDto;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,7 +20,7 @@ public interface ServerArticleService {
      * @param pageSize
      * @return
      */
-    ZeusResponseBean getPageArticles(int startRow, int pageSize);
+    PageInfo<ArticleDto> getPageArticles(int startRow, int pageSize);
 
     /**
      * 根据博客id获取博客内容

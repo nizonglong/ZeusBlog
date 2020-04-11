@@ -30,5 +30,5 @@ public interface AdminArticleService {
      * @param id
      * @return
      */
-    ZeusResponseBean deleteArticle(String id);
+    ZeusResponseBean deleteArticle(Long id);
 }

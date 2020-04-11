@@ -41,7 +41,7 @@ public class AdminArticleController {
     }
 
     @GetMapping("/delete/{id}")
-    public ZeusResponseBean updateArticle(@PathVariable String id) {
+    public ZeusResponseBean updateArticle(@PathVariable Long id) {
         return articleService.deleteArticle(id);
     }
 }

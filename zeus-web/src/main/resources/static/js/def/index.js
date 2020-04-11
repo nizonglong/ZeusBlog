@@ -5,7 +5,7 @@ const LOAD = {
         // 加载index的Article初始信息, 默认初始加载200条信息
         $.ajax({
             type: 'get',
-            url: URLS.server_url + "/article/timeArticles?index=" + pageIndex + "&pageSize=200",
+            url: URLS.server_url + "/article/timeArticles?index=" + pageIndex + "&pageSize=15",
             success: function (data) {
                 if (data.status === 200) {
                     var json = data.data;
