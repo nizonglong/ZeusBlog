@@ -1,6 +1,7 @@
 package com.nzl.server.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author: nizonglong
@@ -16,4 +17,11 @@ public interface ServerUserService {
      * @return
      */
     ZeusResponseBean getUserByToken(String token);
+
+    /**
+     * 更新头像
+     * @param fileName
+     * @return
+     */
+    ZeusResponseBean updateHeadPic(String fileName);
 }

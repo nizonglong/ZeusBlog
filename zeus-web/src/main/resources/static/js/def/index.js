@@ -73,7 +73,7 @@ const LOAD = {
     },
     loadUser: function (user) {
 
-        $("#uname").html("<a href='/page/user'>" + user.username + "</a>");
+        $("#uname").html("<a href='/userInfo.html'>" + user.username + "</a>");
         $("#introduce").html(user.introduction);
     },
     // loadUserTag: function (userTags) {

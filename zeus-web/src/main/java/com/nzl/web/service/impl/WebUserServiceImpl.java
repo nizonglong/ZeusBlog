@@ -3,10 +3,14 @@ package com.nzl.web.service.impl;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.HttpClientUtil;
+import com.nzl.dao.UserMapper;
 import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.User;
 import com.nzl.web.service.WebUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @author: nizonglong
@@ -16,6 +20,8 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class WebUserServiceImpl implements WebUserService {
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public UserDto getUserByToken(String token) {
@@ -25,6 +31,7 @@ public class WebUserServiceImpl implements WebUserService {
                     + Constant.SSO_USER_TOKEN + token);
             //把json转换成 ZeusResponseBean
             ZeusResponseBean result = ZeusResponseBean.formatToPojo(json, UserDto.class);
+            assert result != null;
             if (result.getStatus() == HttpStatus.OK.value()) {
                 return (UserDto) result.getData();
             }
@@ -32,5 +39,10 @@ public class WebUserServiceImpl implements WebUserService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public int updateUser(UserDto user) {
+        return userMapper.updateByPrimaryKey(user);
     }
 }

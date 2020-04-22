@@ -1,8 +1,34 @@
 // 用户操作
-var USER = {
-    param: {
-        // 系统的url
-        surl: "http://localhost:8081"
+const USER = {
+    init: function () {
+        $.ajax({
+            method: 'get',
+            url: URLS.web_url + "/user/getUser",
+            success: function (data) {
+                if (data.status === 200) {
+                    USER.loadInit(data.data);
+                } else {
+                    alert("获取信息异常");
+                }
+            }
+        });
+    },
+    loadInit: function (user) {
+        $("#user-name").val(user.username);
+        $("#real-name").val(user.realName);
+        $("#user-email").val(user.email);
+        $("#user-phone").val(user.phone);
+        $("#user-birthday").val(user.birthday);
+        $("#user-intro").val(user.introduction);
+        var gender = '';
+        if (user.gender === '0') {
+            gender = '男'
+        } else if (user.gender === '1') {
+            gender = '女'
+        } else {
+            gender = '保密'
+        }
+        $("#user-gender").append("<option value=\"" + user.gender + "\" selected>" + gender + "</option>");
     },
     /**
      * 编辑用户信息
@@ -26,16 +52,14 @@ var USER = {
         return true;
     },
     beforeEditUserSubmit: function () {
-
         // 检查信息是否重复
         $.ajax({
-            url: USER.param.surl + "/user/checkUpdateData/" + $("#user-phone").val() + "/2",
+            url: URLS.web_url + "/user/checkUpdateData/" + $("#user-phone").val() + "/2",
             success: function (data) {
                 if (data.status === 200) {
                     USER.doEditUser();
                 } else if (data.status === 400) {
                     alert("手机号已经被占用，请更换号码");
-                    $("#addPermission").select();
                 } else {
                     alert("检测异常");
                 }
@@ -44,13 +68,13 @@ var USER = {
 
     },
     doEditUser: function () {
-        var formData = $("#userInfoForm").serialize();
+        const formData = $("#userInfoForm").serialize();
         encodeURI(encodeURI(formData)); ///注意两次编码！！
 
         $.ajax({
             type: "post",
             dataType: "json",
-            url: USER.param.surl + "/user/updateUserInfo",
+            url: URLS.web_url + "/user/update",
             data: formData
         }).success(function (data) {
             if (data.status === 200) {
@@ -126,12 +150,23 @@ var USER = {
 
 
 var PIC_OP = {
-    param: {
-        // 系统的url
-        surl: "http://localhost:8081"
+    init: function () {
+        $.ajax({
+            method: 'get',
+            url: URLS.web_url + "/user/getUser",
+            success: function (data) {
+                if (data.status === 200) {
+                    PIC_OP.loadInit(data.data);
+                } else {
+                    alert("获取信息异常");
+                }
+            }
+        });
+    },
+    loadInit: function (user) {
+        $("#picHead").attr("src", user.headPortraitUrl);
     },
     showUpload: function () {
-        var that = this;
         const main_file = document.getElementById('upFile');
 
         const fileObj = main_file.files[0];
@@ -165,7 +200,7 @@ var PIC_OP = {
         if (isPic) {
             $.ajax({
                 method: 'post',
-                url: PIC_OP.param.surl + "/user/updateHeadPic",
+                url: URLS.server_url + "/user/updateHeadPic",
                 data: formData,
                 cache: false,
                 processData: false,

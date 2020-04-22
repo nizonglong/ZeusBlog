@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../static/css/app.css">
 </head>
 
-<body id="blog">
+<body id="blog" onload="USER.init()">
 
 <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
     <div class="am-u-sm-8 am-u-sm-centered">
@@ -48,7 +48,15 @@
                             <div class="am-form-group">
                                 <label for="real-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
                                 <div class="am-u-sm-9">
-                                    <input type="text" id="real-name" name="realName" placeholder="姓名 / Name" th:value="${user.getRealName()}">
+                                    <input type="text" id="user-name" name="username" placeholder="用户名 / UserName">
+                                    <small>输入你的用户名，让我们看见你的优秀。</small>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="real-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="real-name" name="realName" placeholder="姓名 / Name">
                                     <small>输入你的名字，让我们记住你。</small>
                                 </div>
                             </div>
@@ -56,7 +64,7 @@
                             <div class="am-form-group">
                                 <label for="user-email" class="am-u-sm-3 am-form-label">电子邮件 / Email</label>
                                 <div class="am-u-sm-9">
-                                    <input type="email" disabled id="user-email" name="email" placeholder="输入你的电子邮件 / Email" th:value="${user.getEmail()}">
+                                    <input type="email" disabled id="user-email" name="email" placeholder="输入你的电子邮件 / Email">
                                     <small>邮箱你懂得...</small>
                                 </div>
                             </div>
@@ -64,37 +72,32 @@
                             <div class="am-form-group">
                                 <label for="user-phone" class="am-u-sm-3 am-form-label">电话 / Telephone</label>
                                 <div class="am-u-sm-9">
-                                    <input type="tel" id="user-phone" name="phone" placeholder="输入你的电话号码 / Telephone" th:value="${user.getPhone()}">
+                                    <input type="tel" id="user-phone" name="phone" placeholder="输入你的电话号码 / Telephone" >
                                 </div>
                             </div>
 
                             <div class="am-form-group">
                                 <label class="am-u-sm-3 am-form-label">性别 / Gender</label>
                                 <div class="am-u-sm-9">
-                                    <select name="gender" th:switch="${user.getGender()}">
-                                        <option th:case="男" selected value="男">男</option>
-                                        <option th:case="女" selected value="女">女</option>
-                                        <option th:case="保密" selected value="保密">保密</option>
-                                        <option value="男">男</option>
-                                        <option value="女">女</option>
-                                        <option value="保密">保密</option>
+                                    <select name="gender" id="user-gender">
+                                        <option value="0">男</option>
+                                        <option value="1">女</option>
+                                        <option value="2">保密</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="am-form-group">
-                                <label for="user-birthday1" class="am-u-sm-3 am-form-label">生日 / Birthday</label>
+                                <label for="user-birthday" class="am-u-sm-3 am-form-label">生日 / Birthday</label>
                                 <div class="am-u-sm-9">
-                                    <input type="date" id="user-birthday1" name="birthday1" disabled
-                                           th:value="${#calendars.format(user.getBirthday(),'yyyy-MM-dd')}">
+                                    <input type="date" id="user-birthday" name="birthday1" disabled>
                                 </div>
                             </div>
 
                             <div class="am-form-group">
                                 <label for="user-intro" class="am-u-sm-3 am-form-label">简介 / Intro</label>
                                 <div class="am-u-sm-9">
-                            <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介" name="introduction"
-                                      th:text="${user.getIntroduction()}"></textarea>
+                            <textarea class="" rows="5" id="user-intro" placeholder="输入个人简介" name="introduction"></textarea>
                                     <small>250字以内写出你的一生...</small>
                                 </div>
                             </div>
@@ -133,13 +136,7 @@
 <!-- <script src="../static/js/app.js"></script> -->
 
 <script src="../static/js/def/index.js"></script>
-<script src="../../static/js/def/user-info.js"></script>
-
-<script src="../../static/laydate/laydate.js"></script>
-<script>
-    laydate.render({
-        elem: '#user-birthday'
-    });
-</script>
+<script src="../static/js/def/user-info.js"></script>
+<script src="../static/js/def/url.js"></script>
 </body>
 </html>

@@ -3,10 +3,14 @@ package com.nzl.server.service.impl;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.HttpClientUtil;
+import com.nzl.dao.UserMapper;
 import com.nzl.model.dto.UserDto;
 import com.nzl.server.service.ServerUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 
 /**
  * @author: nizonglong
@@ -16,6 +20,9 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class ServerUserServiceImpl implements ServerUserService {
+    @Resource
+    private UserMapper userMapper;
+
     @Override
     public ZeusResponseBean getUserByToken(String token) {
         try {
@@ -32,4 +39,13 @@ public class ServerUserServiceImpl implements ServerUserService {
         }
         return null;
     }
+
+    @Override
+    public ZeusResponseBean updateHeadPic(String fileName) {
+        UserDto userDto = new UserDto();
+        userDto.setHeadPortraitUrl(fileName);
+        userMapper.updateByPrimaryKey(userDto);
+        return ZeusResponseBean.ok("头像更新成功");
+    }
+
 }

@@ -3,6 +3,8 @@ package com.nzl.web.controller;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.CookieUtils;
+import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.User;
 import com.nzl.web.service.WebUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,11 @@ public class WebUserController {
         String token = CookieUtils.getCookieValue(request, Constant.ZEUS_TOKEN);
 
         return ZeusResponseBean.ok(userService.getUserByToken(token));
+    }
+
+    @GetMapping("/update")
+    public ZeusResponseBean updateUser(UserDto user) {
+        return ZeusResponseBean.ok(userService.updateUser(user));
     }
 
 }

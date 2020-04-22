@@ -1,5 +1,6 @@
 package com.nzl.server.service.impl;
 
+import com.nzl.server.common.ServerConstant;
 import com.nzl.server.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,13 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public String uploadOne(MultipartFile file, String path) {
+        int delRes = deleteFile(ServerConstant.UPLOADPATH+file);
+        if (delRes > 0) {
+            log.info("delete same file.");
+        } else {
+            log.info("no same file.");
+        }
+
         log.info("start uploadOne()");
 
         String fileName = file.getOriginalFilename();

@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>ZeusBlog修改头像</title>
 </head>
-<body>
-<div style="margin-left:30px;margin-bottom:15px"><a href="/main/index">返回</a></div>
+<body onload="PIC_OP.init()">
+<div style="margin-left:30px;margin-bottom:15px"><a href="/">返回</a></div>
 
 <div>
     <form action="" method="post" id="headForm" onsubmit="return false">
         <div>
-            <img th:src="${picUrl}" height="400px" width="400px" id="picHead" alt="头像"/>
+            <img id="picHead" height="400px" width="400px" alt="头像"/>
         </div>
 
         <div>
@@ -27,6 +27,7 @@
 
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/def/user-info.js"></script>
+<script src="../static/js/def/url.js"></script>
 
 </body>
 </html>

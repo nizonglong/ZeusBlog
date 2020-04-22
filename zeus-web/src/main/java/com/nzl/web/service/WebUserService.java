@@ -1,6 +1,7 @@
 package com.nzl.web.service;
 
 import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.User;
 
 /**
  * @author: nizonglong
@@ -16,4 +17,6 @@ public interface WebUserService{
      * @return
      */
     UserDto getUserByToken(String token);
+
+    int updateUser(UserDto user);
 }

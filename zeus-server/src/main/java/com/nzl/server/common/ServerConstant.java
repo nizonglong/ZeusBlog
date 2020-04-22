@@ -8,6 +8,5 @@ package com.nzl.server.common;
  **/
 public class ServerConstant {
 
-
-
+    public static final String UPLOADPATH = "/Users/zonst/workspace/upload-img/";
 }
