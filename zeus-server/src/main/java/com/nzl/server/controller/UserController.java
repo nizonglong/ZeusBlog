@@ -1,6 +1,8 @@
 package com.nzl.server.controller;
 
 import com.nzl.common.pojo.ZeusResponseBean;
+import com.nzl.dao.UserMapper;
+import com.nzl.model.dto.UserDto;
 import com.nzl.server.common.ServerConstant;
 import com.nzl.server.service.ServerUserService;
 import com.nzl.server.service.impl.FileServiceImpl;
@@ -30,12 +32,22 @@ public class UserController {
     private ServerUserServiceImpl userService;
 
     @PostMapping("/updateHeadPic")
-    ZeusResponseBean updateHeadPic(@RequestParam("file") MultipartFile file) {
-        String res = fileService.uploadOne(file, ServerConstant.UPLOADPATH);
-        if (res != null) {
-            return userService.updateHeadPic(res);
+    ZeusResponseBean updateHeadPic(@RequestParam("file") MultipartFile file, @RequestParam("uid") String uid) {
+        try {
+            UserDto userDto = userService.getUser(uid);
+            String path = ServerConstant.UPLOADPATH + userDto.getHeadPortraitUrl();
+            int delRes = fileService.deleteFile(path);
+            if (delRes <= 0) {
+                return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "头像更新异常，情重新尝试");
+            } else {
+                String res = fileService.uploadOne(file, ServerConstant.UPLOADPATH);
+                if (res != null) {
+                    return userService.updateHeadPic(res, uid);
+                }
+            }
+        } catch (Exception e) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "头像更新异常，情重新尝试");
         }
-
-        return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(),"头像更新异常，情重新尝试");
+        return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "头像更新异常，情重新尝试");
     }
 }

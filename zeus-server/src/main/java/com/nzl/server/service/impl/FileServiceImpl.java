@@ -27,12 +27,6 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public String uploadOne(MultipartFile file, String path) {
-        int delRes = deleteFile(ServerConstant.UPLOADPATH+file);
-        if (delRes > 0) {
-            log.info("delete same file.");
-        } else {
-            log.info("no same file.");
-        }
 
         log.info("start uploadOne()");
 

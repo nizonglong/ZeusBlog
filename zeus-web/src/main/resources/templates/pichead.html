@@ -9,12 +9,13 @@
 
 <div>
     <form action="" method="post" id="headForm" onsubmit="return false">
+        <input type="hidden" id="uid" name="uid">
         <div>
-            <img id="picHead" height="400px" width="400px" alt="头像"/>
+            <img id="picHead" width="400px" alt="头像"/>
         </div>
 
         <div>
-            <input type="file" th:id="upFile" onchange="PIC_OP.showUpload()" name="head"/>
+            <input type="file" id="upFile" onchange="PIC_OP.showUpload()" name="file"/>
         </div>
 
         <br>

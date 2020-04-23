@@ -85,15 +85,8 @@ public class ShiroConfig {
 
         // 自定义url规则使用LinkedHashMap有序Map
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>(16);
-        // Swagger接口文档
-        // filterChainDefinitionMap.put("/v2/api-docs", "anon");
-        // filterChainDefinitionMap.put("/webjars/**", "anon");
-        // filterChainDefinitionMap.put("/swagger-resources/**", "anon");
-        // filterChainDefinitionMap.put("/swagger-ui.html", "anon");
-        // filterChainDefinitionMap.put("/doc.html", "anon");
-        // 公开接口
-        // filterChainDefinitionMap.put("/api/**", "anon");
-        // 登录接口放开
+
+        // 接口放开
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/signup", "anon");
         filterChainDefinitionMap.put("/user/**", "anon");

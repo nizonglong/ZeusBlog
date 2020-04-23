@@ -30,4 +30,7 @@ public class UserDto extends User {
     @Transient
     private String activeCode;
 
+    @Transient
+    private String token;
+
 }

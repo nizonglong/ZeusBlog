@@ -36,6 +36,8 @@ import java.util.UUID;
 @Transactional(rollbackFor = Exception.class)
 @Service
 public class SsoUserServiceImpl implements SsoUserService {
+    public static final String defaultHead = "https://cdn.jsdelivr.net/gh/nizonglong/oss@master/2020-04-22%2019:17:08-uPic-head.png";
+
     @Resource
     private UserMapper userMapper;
 
@@ -104,6 +106,13 @@ public class SsoUserServiceImpl implements SsoUserService {
 
         String uid = "zeus_" + UUID.randomUUID();
         userDto.setUid(uid);
+
+        // 默认性别为保密
+        userDto.setGender("n");
+        // 加入日期
+        userDto.setJoinTime(new Date());
+        // 设置默认头像
+        userDto.setHeadPortraitUrl(defaultHead);
 
         // insert
         userMapper.insert(userDto);

@@ -1,6 +1,7 @@
 package com.nzl.server.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
+import com.nzl.model.dto.UserDto;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -23,5 +24,7 @@ public interface ServerUserService {
      * @param fileName
      * @return
      */
-    ZeusResponseBean updateHeadPic(String fileName);
+    ZeusResponseBean updateHeadPic(String fileName,String uid);
+
+    UserDto getUser(String uid);
 }

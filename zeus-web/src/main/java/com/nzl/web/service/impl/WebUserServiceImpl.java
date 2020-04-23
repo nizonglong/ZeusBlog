@@ -3,6 +3,7 @@ package com.nzl.web.service.impl;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.HttpClientUtil;
+import com.nzl.common.util.JsonUtils;
 import com.nzl.dao.UserMapper;
 import com.nzl.model.dto.UserDto;
 import com.nzl.model.pojo.User;
@@ -43,6 +44,29 @@ public class WebUserServiceImpl implements WebUserService {
 
     @Override
     public int updateUser(UserDto user) {
-        return userMapper.updateByPrimaryKey(user);
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public ZeusResponseBean checkUpdateData(String data, int type) {
+        UserDto userDto = new UserDto();
+        int count = 0;
+        if (1 == type) {
+            userDto.setUsername(data);
+            count = userMapper.selectCount(userDto);
+        } else if (2 == type) {
+            userDto.setPhone(data);
+            count = userMapper.selectCount(userDto);
+        }
+
+        if (count == 0) {
+            return ZeusResponseBean.ok();
+        }
+        return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(),"数据重复");
+    }
+
+    @Override
+    public User getUser(String uid) {
+        return userMapper.selectByPrimaryKey(uid);
     }
 }

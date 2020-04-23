@@ -15,6 +15,8 @@ const USER = {
     },
     loadInit: function (user) {
         $("#user-name").val(user.username);
+        $("#uid").val(user.uid);
+        $("#token").val(getCookie("ZEUS_TOKEN"));
         $("#real-name").val(user.realName);
         $("#user-email").val(user.email);
         $("#user-phone").val(user.phone);
@@ -68,14 +70,13 @@ const USER = {
 
     },
     doEditUser: function () {
-        const formData = $("#userInfoForm").serialize();
-        encodeURI(encodeURI(formData)); ///注意两次编码！！
 
         $.ajax({
             type: "post",
             dataType: "json",
+            contentType: "application/json;charset=UTF-8",
             url: URLS.web_url + "/user/update",
-            data: formData
+            data: JSON.stringify(getFormData($("#userInfoForm")))
         }).success(function (data) {
             if (data.status === 200) {
                 alert("用户信息修改成功！");
@@ -164,7 +165,8 @@ var PIC_OP = {
         });
     },
     loadInit: function (user) {
-        $("#picHead").attr("src", user.headPortraitUrl);
+        $("#uid").val(user.uid);
+        $("#picHead").attr("src", URLS.server_url + "/" + user.headPortraitUrl);
     },
     showUpload: function () {
         const main_file = document.getElementById('upFile');
@@ -209,7 +211,7 @@ var PIC_OP = {
                 if (data.status === 200) {
                     alert("头像修改成功！");
                     // 清空表单
-                    window.location.href = "/main/index";
+                    window.location.href = "/";
                 } else if (data.status === 400) {
                     alert("头像修改失败！");
                 } else {
@@ -222,3 +224,30 @@ var PIC_OP = {
     }
 
 };
+
+function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}
+
+function getCookie(cname) {
+    const name = cname + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}

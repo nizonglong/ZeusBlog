@@ -87,10 +87,13 @@ public class Constant {
     public static final String SSO_BASE_URL = "http://localhost:8081";
     public static final String SSO_USER_TOKEN = "/user/token/";
     public static final String SSO_PAGE_LOGIN = "/login";
+    public static final String SSO_REDIS_SET = "/user/redisSet";
 
 
     /**
      * REDIS_ARTICLE_KEY
      */
     public static final String REDIS_ARTICLE_KEY = "REDIS_ARTICLE_KEY";
+    public static final String REDIS_USER_SESSION_KEY = "REDIS_USER_SESSION";
+    public static final Integer SSO_SESSION_EXPIRE = 18000;
 }

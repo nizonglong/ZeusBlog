@@ -4,6 +4,7 @@ import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.ExceptionUtil;
 import com.nzl.model.dto.UserDto;
 import com.nzl.sso.service.SsoUserService;
+import com.nzl.sso.util.JedisUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,4 +53,25 @@ public class LoginController {
         }
         return result;
     }
+
+    @RequestMapping("/redisSet/{type}")
+    public Object setJsonRedis(String key, String value, int time, @PathVariable int type) {
+        ZeusResponseBean result = null;
+        if (type == 0) {
+            type = 1;
+        }
+        try {
+            if (1 == type) {
+                JedisUtil.setJson(key, value, time);
+            } else {
+                JedisUtil.setObject(key, value, time);
+            }
+            result = ZeusResponseBean.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = ZeusResponseBean.build(HttpStatus.INTERNAL_SERVER_ERROR.value(), ExceptionUtil.getStackTrace(e));
+        }
+        return result;
+    }
+
 }

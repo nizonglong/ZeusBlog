@@ -1,5 +1,6 @@
 package com.nzl.web.service;
 
+import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.model.dto.UserDto;
 import com.nzl.model.pojo.User;
 
@@ -19,4 +20,8 @@ public interface WebUserService{
     UserDto getUserByToken(String token);
 
     int updateUser(UserDto user);
+
+    ZeusResponseBean checkUpdateData(String data, int type);
+
+    User getUser(String uid);
 }
