@@ -44,4 +44,22 @@
         order by blog_time desc
     </select>
 
+    <select id="searchByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Blob_Column_List"/>
+        from article_blog
+        where title like '%' #{title} '%'
+        order by blog_time desc
+    </select>
+
+    <select id="searchByContent" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="Blob_Column_List"/>
+        from article_blog
+        where content like '%' #{content} '%'
+        order by blog_time desc
+    </select>
+
 </mapper>

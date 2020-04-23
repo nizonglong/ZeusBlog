@@ -4,6 +4,7 @@ import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.CookieUtils;
 import com.nzl.common.util.HttpClientUtil;
+import com.nzl.common.util.JsonUtils;
 import com.nzl.model.dto.UserDto;
 import com.nzl.web.service.WebUserService;
 import org.springframework.http.HttpStatus;
@@ -45,11 +46,13 @@ public class WebUserController {
         try {
             userService.updateUser(user);
             // update redis
+            UserDto userDto = userService.getUser(user.getUid());
+
             Map<String, String> map = new HashMap<>(2);
-            map.put("key", REDIS_USER_SESSION_KEY + user.getToken());
-            map.put("value", userService.getUser(user.getUid()).toString());
+            map.put("key", REDIS_USER_SESSION_KEY + ":" + user.getToken());
+            map.put("value", JsonUtils.objectToJson(userDto));
             map.put("time", SSO_SESSION_EXPIRE.toString());
-            HttpClientUtil.doPost(Constant.SSO_BASE_URL + Constant.SSO_REDIS_SET+"/1", map);
+            HttpClientUtil.doPost(Constant.SSO_BASE_URL + Constant.SSO_REDIS_SET + "/1", map);
         } catch (Exception e) {
             return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "exception");
         }

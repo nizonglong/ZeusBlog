@@ -23,6 +23,11 @@
         join_time, email, phone, salt, status, gmt_create, gmt_modified
     </sql>
 
+    <sql id="Search_Column_List">
+        uid, username, real_name, gender, head_portrait_url, introduction,
+        join_time, email, phone
+    </sql>
+
 
     <select id="getUser" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -56,6 +61,13 @@
         where uid = (
             SELECT uid from reply_comment
             where reply_comment_id = #{replyId})
+    </select>
+
+    <select id="searchUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Search_Column_List"/>
+        from user
+        where username like '%' #{username} '%'
     </select>
 
 </mapper>

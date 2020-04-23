@@ -66,7 +66,7 @@ public class WebUserServiceImpl implements WebUserService {
     }
 
     @Override
-    public User getUser(String uid) {
+    public UserDto getUser(String uid) {
         return userMapper.selectByPrimaryKey(uid);
     }
 }

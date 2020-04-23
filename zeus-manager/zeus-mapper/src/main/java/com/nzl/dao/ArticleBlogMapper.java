@@ -25,4 +25,9 @@ public interface ArticleBlogMapper extends Mapper<ArticleDto> {
      */
     List<ArticleBlog> getArticlesByUid(String uid, int startRow, int pageSize);
 
+
+    List<ArticleBlog> searchByTitle(String title);
+
+    List<ArticleBlog> searchByContent(String content);
+
 }

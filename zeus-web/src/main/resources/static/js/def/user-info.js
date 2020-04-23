@@ -81,7 +81,7 @@ const USER = {
             if (data.status === 200) {
                 alert("用户信息修改成功！");
                 // 清空表单
-                window.location.reload(); // 刷新当前页面.
+                // window.location.reload(); // 刷新当前页面.
             } else if (data.status === 400) {
                 alert("用户信息修改失败！");
             } else {

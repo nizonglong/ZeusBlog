@@ -23,5 +23,5 @@ public interface WebUserService{
 
     ZeusResponseBean checkUpdateData(String data, int type);
 
-    User getUser(String uid);
+    UserDto getUser(String uid);
 }
