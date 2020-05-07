@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.common.util.JsonUtils;
+import com.nzl.common.util.PageUtils;
 import com.nzl.dao.*;
 import com.nzl.model.dto.ArticleDto;
 import com.nzl.model.dto.CommentDto;
@@ -53,12 +54,16 @@ public class ServerArticleServiceImpl implements ServerArticleService {
         try {
             PageHelper.startPage(index, pageSize);
             List<ArticleBlog> articles = blogMapper.getPageArticles(index, pageSize);
-            return new PageInfo<>(getArticleInfo(articles));
+            PageInfo<ArticleBlog> res = new PageInfo<>(articles);
+            PageInfo<ArticleDto> target = PageUtils.PageInfo2PageInfoVo(res);
+            target.getList().addAll(getArticleInfo(articles));
+            return target;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 
     @Override
     public ZeusResponseBean getArticleById(String id) {
@@ -97,8 +102,10 @@ public class ServerArticleServiceImpl implements ServerArticleService {
     public ZeusResponseBean getArticlesByUid(String uid, int index, int pageSize) {
         PageHelper.startPage(index, pageSize);
         List<ArticleBlog> articles = blogMapper.getArticlesByUid(uid, index, pageSize);
-        PageInfo<ArticleDto> pageInfo = new PageInfo<>(getArticleInfo(articles));
-        return ZeusResponseBean.ok(pageInfo);
+        PageInfo<ArticleBlog> pageInfo = new PageInfo<>(articles);
+        PageInfo<ArticleDto> target = PageUtils.PageInfo2PageInfoVo(pageInfo);
+        target.getList().addAll(getArticleInfo(articles));
+        return ZeusResponseBean.ok(target);
     }
 
     /**

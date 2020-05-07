@@ -3,6 +3,7 @@ package com.nzl.server.service;
 import com.github.pagehelper.PageInfo;
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.model.dto.ArticleDto;
+import com.nzl.model.pojo.ArticleBlog;
 import org.springframework.stereotype.Service;
 
 /**

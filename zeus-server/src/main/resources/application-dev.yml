@@ -29,7 +29,7 @@ logging:
     com.neo.mapper: DEBUG
 
 pagehelper:
-  helperDialect: mysql
   reasonable: true
-  supportMethodsArguments: true
   params: count=countSql
+  helper-dialect: mysql
+  support-methods-arguments: true

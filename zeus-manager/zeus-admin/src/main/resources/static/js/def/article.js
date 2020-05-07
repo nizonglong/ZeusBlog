@@ -75,6 +75,10 @@ const ARTICLE = {
     },
     // 文章列表
     getList: function (pageIndex) {
+        // 重置数据
+        $("#list-body").html("");
+        $("#pages").html("");
+
         $.ajax({
             method: 'get',
             url: URLS.server_url + "/article/list?uid=" + getCookie("ZEUS_UID") + "&index=" + pageIndex + "&pageSize=15",
@@ -98,8 +102,8 @@ const ARTICLE = {
                 "                          </label>\n" +
                 "                        </td>\n" +
                 "                        <td>" + article.articleBlogId + "</td>\n" +
-                "                        <td>" + article.title + "</td>\n" +
-                "                        <td>" + article.digest + "</td>\n" +
+                "                        <td>" + (article.title.length>10?article.title.substr(0,10)+"......":article.title) + "</td>\n" +
+                "                        <td>" + (article.digest.length>10?article.digest.substr(0,10)+"......":article.digest) + "</td>\n" +
                 "                        <td>" + article.typeName + "</td>\n" +
                 "                        <td>" + article.blogTime + "</td>\n" +
                 "                        <td><font class=\"text-success\">" + article.status + "</font></td>\n" +
@@ -123,10 +127,10 @@ const ARTICLE = {
         // 页码
         $.each(json.navigatepageNums, function (index, page) {
             if (json.pageNum === page) {
-                $("#pages").append("<li><a href=\"#list-body\" " +
+                $("#pages").append("<li class=\"active\"><a href=\"javascript:void(0);\" " +
                     "onclick=\"ARTICLE.getList(" + page + ")\">" + page + "</a></li>");
             } else {
-                $("#pages").append("<li><a href=\"#list-body\" " +
+                $("#pages").append("<li><a href=\"javascript:void(0);\" " +
                     "onclick=\"ARTICLE.getList(" + page + ")\">" + page + "</a></li>");
             }
         });

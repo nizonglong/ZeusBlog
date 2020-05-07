@@ -26,10 +26,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="zeus-server" />
-    <orderEntry type="module" module-name="zeus-server" />
-    <orderEntry type="module" module-name="zeus-server" />
-    <orderEntry type="module" module-name="zeus-server" />
-    <orderEntry type="module" module-name="zeus-server" />
     <orderEntry type="module" module-name="zeus-mapper" />
     <orderEntry type="module" module-name="zeus-model" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9" level="project" />
@@ -59,6 +55,8 @@
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-event:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-web:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: com.auth0:java-jwt:3.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-starter:1.2.7" level="project" />
+    <orderEntry type="library" name="Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.7" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-spring-boot-starter:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-core:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: javax.persistence:persistence-api:1.0" level="project" />

@@ -1,6 +1,5 @@
 package com.nzl.dao;
 
-import com.nzl.common.util.StringUtil;
 import com.nzl.model.dto.ArticleDto;
 import com.nzl.model.pojo.ArticleBlog;
 import tk.mybatis.mapper.common.Mapper;
@@ -10,6 +9,7 @@ import java.util.List;
 /**
  * @author nizonglong
  */
+@org.apache.ibatis.annotations.Mapper
 public interface ArticleBlogMapper extends Mapper<ArticleDto> {
     /**
      * 获取article by page

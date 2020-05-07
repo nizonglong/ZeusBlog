@@ -2,6 +2,7 @@ package com.nzl.dao;
 
 import com.nzl.model.dto.CommentDto;
 import com.nzl.model.pojo.ArticleComment;
+import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * @author nizonglong
  */
+@org.apache.ibatis.annotations.Mapper
 public interface ArticleCommentMapper extends Mapper<CommentDto>  {
     /**
      * 通过博客id查找评论
