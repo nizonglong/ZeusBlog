@@ -2,7 +2,6 @@ package com.nzl.server.service;
 
 import com.nzl.common.pojo.ZeusResponseBean;
 import com.nzl.model.dto.UserDto;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author: nizonglong

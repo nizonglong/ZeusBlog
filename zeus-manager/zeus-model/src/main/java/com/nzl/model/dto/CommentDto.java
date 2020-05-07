@@ -21,5 +21,8 @@ public class CommentDto extends ArticleComment {
     @Transient
     private String username;
 
+    @Transient
+    private String blogName;
+
     private List<ReplyDto> reply;
 }

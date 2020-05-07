@@ -62,4 +62,11 @@
         order by blog_time desc
     </select>
 
+    <select id="getArticleIdAndTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select article_blog_id, title
+        from article_blog
+        where uid = #{uid}
+        order by blog_time desc
+    </select>
+
 </mapper>

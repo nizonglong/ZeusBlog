@@ -1,11 +1,9 @@
-package com.nzl.server.service.impl;
+package com.nzl.admin.service.impl;
 
-
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.nzl.admin.service.AdminCommentService;
 import com.nzl.common.constant.Constant;
 import com.nzl.common.pojo.ZeusResponseBean;
-import com.nzl.common.util.JsonUtils;
+import com.nzl.common.util.HttpClientUtil;
 import com.nzl.dao.*;
 import com.nzl.model.dto.ArticleDto;
 import com.nzl.model.dto.CommentDto;
@@ -14,25 +12,16 @@ import com.nzl.model.dto.UserDto;
 import com.nzl.model.pojo.ArticleBlog;
 import com.nzl.model.pojo.ArticleComment;
 import com.nzl.model.pojo.ReplyComment;
-import com.nzl.server.model.ArticleVo;
-import com.nzl.server.service.ServerArticleService;
-import com.nzl.server.util.RedisUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author: nizonglong
- * @date: 2020/3/21 15:57
- * @desc:
- * @version: 0.1
- **/
 @Service
-public class ServerArticleServiceImpl implements ServerArticleService {
+public class AdminCommentServiceImpl implements AdminCommentService {
 
     @Resource
     private ArticleBlogMapper blogMapper;
@@ -45,60 +34,44 @@ public class ServerArticleServiceImpl implements ServerArticleService {
     @Resource
     private BlogTypeMapper typeMapper;
 
-    @Resource
-    RedisUtil redisUtil;
 
     @Override
-    public PageInfo<ArticleDto> getPageArticles(int index, int pageSize) {
-        try {
-            PageHelper.startPage(index, pageSize);
-            List<ArticleBlog> articles = blogMapper.getPageArticles(index, pageSize);
-            return new PageInfo<>(getArticleInfo(articles));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    public ZeusResponseBean getComments(String uid) {
+        // 获取文章信息
+        List<ArticleBlog> articleBlogList = blogMapper.getArticleIdAndTitle(uid);
+        // 获取评论信息
+        List<CommentDto> commentDtos = getCommentList(articleBlogList);
+
+        return ZeusResponseBean.ok(commentDtos);
+    }
+
+    private List<CommentDto> getCommentList(List<ArticleBlog> articleBlogList) {
+        List<CommentDto> commentDtoList = new ArrayList<>();
+
+        for (ArticleBlog article: articleBlogList) {
+            // 文章评论信息
+            List<ArticleComment> comments = commentMapper.selectByArticleId(article.getArticleBlogId());
+            commentDtoList.addAll(getCommentInfo(comments));
         }
+
+        return commentDtoList;
     }
 
     @Override
-    public ZeusResponseBean getArticleById(String id) {
+    public ZeusResponseBean getUserByToken(String token) {
         try {
-            //添加缓存逻辑
-            //从缓存中取信息
-            Object articleObj = redisUtil.getObject(Constant.REDIS_ARTICLE_KEY + id);
-            String json = JsonUtils.objectToJson(articleObj);
-            //判断是否有值
-            if (!StringUtils.isBlank(json)) {
-                //把json转换成java对象
-                ArticleDto article = JsonUtils.jsonToPojo(json, ArticleDto.class);
-                return ZeusResponseBean.ok(article);
+            //调用sso系统的服务，根据token取用户信息
+            String json = HttpClientUtil.doGet(Constant.SSO_BASE_URL
+                    + Constant.SSO_USER_TOKEN + token);
+            //把json转换成 ZeusResponseBean
+            ZeusResponseBean result = ZeusResponseBean.formatToPojo(json, UserDto.class);
+            if (result.getStatus() == HttpStatus.OK.value()) {
+                return result;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // 没有Article的话就从数据库提取
-        ArticleDto article = blogMapper.selectByPrimaryKey(id);
-        // 加入缓存Redis
-        redisUtil.setObject(Constant.REDIS_ARTICLE_KEY + article.getArticleBlogId(),
-                JsonUtils.objectToJson(article));
-        // 文章作者信息
-        UserDto author = userMapper.selectByPrimaryKey(article.getUid());
-        // 文章评论信息
-        List<ArticleComment> comments = commentMapper.selectByArticleId(article.getArticleBlogId());
-        // 文章的VO类
-        ArticleVo articleVo = new ArticleVo(article, author, getCommentInfo(comments));
-
-        return ZeusResponseBean.ok(articleVo);
-    }
-
-    @Override
-    public ZeusResponseBean getArticlesByUid(String uid, int index, int pageSize) {
-        PageHelper.startPage(index, pageSize);
-        List<ArticleBlog> articles = blogMapper.getArticlesByUid(uid, index, pageSize);
-        PageInfo<ArticleDto> pageInfo = new PageInfo<>(getArticleInfo(articles));
-        return ZeusResponseBean.ok(pageInfo);
+        return null;
     }
 
     /**

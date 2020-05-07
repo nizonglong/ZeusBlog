@@ -1,5 +1,6 @@
 package com.nzl.dao;
 
+import com.nzl.common.util.StringUtil;
 import com.nzl.model.dto.ArticleDto;
 import com.nzl.model.pojo.ArticleBlog;
 import tk.mybatis.mapper.common.Mapper;
@@ -29,5 +30,7 @@ public interface ArticleBlogMapper extends Mapper<ArticleDto> {
     List<ArticleBlog> searchByTitle(String title);
 
     List<ArticleBlog> searchByContent(String content);
+
+    List<ArticleBlog> getArticleIdAndTitle(String uid);
 
 }
