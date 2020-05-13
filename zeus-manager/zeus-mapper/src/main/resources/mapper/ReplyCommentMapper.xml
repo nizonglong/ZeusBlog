@@ -39,4 +39,9 @@
         where article_blog_id = #{id}
     </delete>
 
+    <delete id="deleteRepliesByCommentId">
+        delete from  reply_comment
+        where article_comment_id = #{id}
+    </delete>
+
 </mapper>

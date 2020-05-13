@@ -19,4 +19,10 @@ public class AdminCommentController {
 
         return commentService.getComments(uid);
     }
+
+    @GetMapping("/delete")
+    public ZeusResponseBean deleteOne(Long id, Integer type) {
+
+        return commentService.deleteComment(id, type);
+    }
 }

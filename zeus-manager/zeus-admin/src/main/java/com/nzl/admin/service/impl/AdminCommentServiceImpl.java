@@ -45,6 +45,19 @@ public class AdminCommentServiceImpl implements AdminCommentService {
         return ZeusResponseBean.ok(commentDtos);
     }
 
+    @Override
+    public ZeusResponseBean deleteComment(Long id, Integer type) {
+        if (1 == type) {
+            // 删除评论及其相关的回复
+            replyMapper.deleteRepliesByCommentId(id);
+            commentMapper.deleteByPrimaryKey(id);
+        } else if (2 == type) {
+            // 删除回复
+            replyMapper.deleteByPrimaryKey(id);
+        }
+        return ZeusResponseBean.ok("删除成功！");
+    }
+
     private List<CommentDto> getCommentList(List<ArticleBlog> articleBlogList) {
         List<CommentDto> commentDtoList = new ArrayList<>();
 

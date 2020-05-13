@@ -189,7 +189,7 @@ const COMMENT = {
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-                alert(data.data);
+                // alert(data.data);
                 window.location.reload();
             },
             error: function (data) {

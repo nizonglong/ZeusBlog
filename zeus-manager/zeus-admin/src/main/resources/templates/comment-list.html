@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>文档列表 - 光年(Light Year Admin)后台管理系统模板</title>
-<link rel="icon" href="favicon.ico" type="image/ico">
+  <link rel="icon" href="../static/images/favicon.ico" type="image/ico">
 <meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
 <meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
 <meta name="author" content="yinqi">
@@ -13,7 +13,7 @@
 <link href="../static/css/style.min.css" rel="stylesheet">
 </head>
   
-<body>
+<body onload="COMMENT.getComments()">
 <div class="lyear-layout-web">
   <div class="lyear-layout-container">
     <!--左侧导航-->
@@ -33,10 +33,10 @@
               <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 示例页面</a>
               <ul class="nav nav-subnav">
                 <li> <a href="article-list.html">文档列表</a> </li>
-                <li> <a href="lyear_pages_gallery.html">图库列表</a> </li>
+                <li class="active"> <a href="comment-list.html">评论列表</a> </li>
                 <li> <a href="lyear_pages_config.html">网站配置</a> </li>
                 <li> <a href="lyear_pages_rabc.html">设置权限</a> </li>
-                <li class="active"> <a href="lyear_pages_add_doc.html">新增文档</a> </li>
+                <li> <a href="add-article.html">新增文章</a> </li>
               </ul>
             </li>
 
@@ -69,7 +69,7 @@
           <ul class="topbar-right">
             <li class="dropdown dropdown-profile">
               <a href="javascript:void(0)" data-toggle="dropdown">
-                <img class="img-avatar img-avatar-48 m-r-10" src="images/users/avatar.jpg" alt="笔下光年" />
+                <img class="img-avatar img-avatar-48 m-r-10" src="../static/images/users/avatar.jpg" alt="笔下光年" />
                 <span>笔下光年 <span class="caret"></span></span>
               </a>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -264,24 +264,8 @@
                         <th>操作</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <label class="lyear-checkbox checkbox-primary">
-                            <input type="checkbox" name="ids[]" value="1"><span></span>
-                          </label>
-                        </td>
-                        <td>这是第一个标题</td>
-                        <td>u001</td>
-                        <td>评论此文章的第一条评论</td>
-                        <td>2020-04-10 14:22:25</td>
-                        <td>
-                          <div class="btn-group">
-                            <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                            <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                          </div>
-                        </td>
-                      </tr>
+                    <tbody id="comment-list">
+
 
                     </tbody>
                   </table>
@@ -319,6 +303,11 @@
 <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../static/js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="../static/js/main.min.js"></script>
+
+<!--def-->
+<script src="../static/js/def/comment.js"></script>
+<script src="../static/js/def/url.js"></script>
+
 <script type="text/javascript">
 $(function(){
     $('.search-bar .dropdown-menu a').click(function() {

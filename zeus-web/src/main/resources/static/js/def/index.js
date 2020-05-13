@@ -37,21 +37,6 @@ const LOAD = {
             }
         });
 
-        // 加载用户自定义标签
-        // $.ajax({
-        //     type: 'get',
-        //     url: this.param.surl + "/main/getUserTag",
-        //     success: function (data) {
-        //         if (data.status === 200) {
-        //             LOAD.loadUserTag(data.data);
-        //         } else {
-        //             alert("获取用户自定义标签失败！");
-        //         }
-        //     },
-        //     error: function () {
-        //         alert("Ajax 异常");
-        //     }
-        // });
     },
     initArticle: function (articles) {
         $.each(articles, function (index, article) {
@@ -76,11 +61,7 @@ const LOAD = {
         $("#uname").html("<a href='/userInfo.html'>" + user.username + "</a>");
         $("#introduce").html(user.introduction);
     },
-    // loadUserTag: function (userTags) {
-    //     $.each(userTags, function (index, userTag) {
-    //         $("#utag").append("<a href=\"\" class=\"blog-tag\">" + userTag.name + "</a>");
-    //     });
-    // },
+
     loadPageNum: function (json) {
         // 头
         if (json.hasPreviousPage) {
