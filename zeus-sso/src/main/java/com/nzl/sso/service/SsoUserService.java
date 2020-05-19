@@ -59,4 +59,8 @@ public interface SsoUserService {
     ZeusResponseBean getUserByToken(String token);
 
     UserDto selectOne(UserDto userDto);
+
+    ZeusResponseBean createVisitor(UserDto userDto);
+    ZeusResponseBean loginVisitor(String uid, String password,
+                                  HttpServletRequest request, HttpServletResponse response);
 }

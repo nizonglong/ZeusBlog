@@ -31,9 +31,6 @@ public class RegisterController {
      * 新增用户
      *
      * @param userDto
-     * @return java.util.Map<java.lang.String, java.lang.Object>
-     * @author dolyw.com
-     * @date 2018/8/30 10:42
      */
     @PostMapping("/register")
     public ZeusResponseBean register(@RequestBody UserDto userDto) {

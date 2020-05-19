@@ -31,5 +31,12 @@
         </where>
     </select>
 
+    <select id="selectByRid" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from role
+        where role_id = #{rid}
+    </select>
+
 
 </mapper>

@@ -22,5 +22,6 @@ public interface RoleMapper extends Mapper<RoleDto> {
      */
     List<RoleDto> findRoleByUser(UserDto userDto);
 
+    Role selectByRid(Integer rid);
 
 }

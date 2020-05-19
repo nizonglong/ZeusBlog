@@ -80,6 +80,8 @@ public class Constant {
      * ZEUS_UID
      */
     public static final String ZEUS_UID = "ZEUS_UID";
+    public static final String VISITOR_UID = "VISITOR_UID";
+    public static final String VISITOR_FLAG = "VISITOR_FLAG";
 
     /**
      * SSO 一些通用路径

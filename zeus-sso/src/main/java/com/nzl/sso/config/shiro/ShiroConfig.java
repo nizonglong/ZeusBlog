@@ -88,6 +88,7 @@ public class ShiroConfig {
 
         // 接口放开
         filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/visitor/**", "anon");
         filterChainDefinitionMap.put("/signup", "anon");
         filterChainDefinitionMap.put("/user/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");

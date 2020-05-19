@@ -8,8 +8,11 @@ import com.nzl.common.util.AesCipherUtil;
 import com.nzl.common.util.CookieUtils;
 import com.nzl.common.util.JsonUtils;
 import com.nzl.common.util.VerifyUtil;
+import com.nzl.dao.RoleMapper;
+import com.nzl.dao.RolePermissionMapper;
 import com.nzl.dao.UserMapper;
 import com.nzl.model.dto.UserDto;
+import com.nzl.model.pojo.UserRole;
 import com.nzl.server.util.MailUtil;
 import com.nzl.sso.service.SsoUserService;
 import com.nzl.sso.util.JedisUtil;
@@ -25,6 +28,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -40,7 +44,10 @@ public class SsoUserServiceImpl implements SsoUserService {
 
     @Resource
     private UserMapper userMapper;
-
+    @Resource
+    private RolePermissionMapper rolePermissionMapper;
+    @Resource
+    private RoleMapper roleMapper;
     @Resource
     private MailUtil mailUtil;
 
@@ -116,6 +123,8 @@ public class SsoUserServiceImpl implements SsoUserService {
 
         // insert
         userMapper.insert(userDto);
+        // 新增role信息
+        rolePermissionMapper.insertUserRole(uid, 1);
 
         return ZeusResponseBean.ok("新增成功(Insert Success)");
     }
@@ -128,6 +137,10 @@ public class SsoUserServiceImpl implements SsoUserService {
         userDtoTemp = userMapper.selectOne(userDtoTemp);
         if (userDtoTemp == null) {
             return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "该帐号不存在(The account does not exist.)");
+        }
+        UserRole userRole = rolePermissionMapper.selectByUid(userDtoTemp.getUid());
+        if (roleMapper.selectByRid(userRole.getRid()).getAvailable() == 0) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "该帐号被冻结(The account had been freeze.)");
         }
         // 密码进行AES解密
         String key = AesCipherUtil.deCrypto(userDtoTemp.getPassword());
@@ -149,6 +162,7 @@ public class SsoUserServiceImpl implements SsoUserService {
 
             //添加写cookie的逻辑，cookie的有效期是关闭浏览器就失效
             CookieUtils.setCookie(request, response, Constant.ZEUS_TOKEN, token);
+            CookieUtils.deleteCookie(request, response, Constant.VISITOR_FLAG);
             CookieUtils.setCookie(request, response, Constant.ZEUS_UID, userDtoTemp.getUid());
 
             response.setHeader("Authorization", token);
@@ -177,5 +191,84 @@ public class SsoUserServiceImpl implements SsoUserService {
     @Override
     public UserDto selectOne(UserDto userDto) {
         return userMapper.selectOne(userDto);
+    }
+
+    @Override
+    public ZeusResponseBean createVisitor(UserDto userDto) {
+        userDto.setJoinTime(new Date());
+        // 游客默认邮箱
+        userDto.setEmail("test@163.com");
+
+        // 密码以邮箱+密码的形式进行AES加密
+        if (userDto.getPassword().length() > Constant.PASSWORD_MAX_LEN) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "密码最多16位(Password up to 16 bits.)");
+        }
+        String key = AesCipherUtil.enCrypto(userDto.getEmail() + userDto.getPassword());
+        userDto.setPassword(key);
+
+        String uid = "zeus_" + UUID.randomUUID();
+        userDto.setUid(uid);
+
+        userDto.setUsername("visitor");
+
+        // 默认性别为保密
+        userDto.setGender("n");
+        // 加入日期
+        userDto.setJoinTime(new Date());
+        // 设置默认头像
+        userDto.setHeadPortraitUrl(defaultHead);
+
+        // insert
+        userMapper.insert(userDto);
+        // 新增role信息
+        rolePermissionMapper.insertUserRole(uid, 1);
+
+        return ZeusResponseBean.ok(uid);
+    }
+
+    @Override
+    public ZeusResponseBean loginVisitor(String uid, String password, HttpServletRequest request, HttpServletResponse response) {
+        // 游客默认邮箱test@163.com
+        String email = "test@163.com";
+        // 查询数据库中的帐号信息
+        UserDto userDtoTemp = new UserDto();
+        userDtoTemp.setUid(uid);
+        userDtoTemp = userMapper.selectOne(userDtoTemp);
+        if (userDtoTemp == null) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "该帐号不存在(The account does not exist.)");
+        }
+        UserRole userRole = rolePermissionMapper.selectByUid(uid);
+        if (roleMapper.selectByRid(userRole.getRid()).getAvailable() == 0) {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "该帐号被冻结(The account had been freeze.)");
+        }
+        // 密码进行AES解密
+        String key = AesCipherUtil.deCrypto(userDtoTemp.getPassword());
+        // 因为密码加密是以邮箱+密码的形式进行加密的，所以解密后的对比是帐号+密码
+        if (key.equals(email + password)) {
+            // 清除可能存在的Shiro权限信息缓存
+            if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + email)) {
+                JedisUtil.delKey(Constant.PREFIX_SHIRO_CACHE + email);
+            }
+            // 设置RefreshToken，时间戳为当前时间戳，直接设置即可(不用先删后设，会覆盖已有的RefreshToken)
+            String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+            // 从Header中Authorization返回AccessToken，时间戳为当前时间戳
+            String token = JwtUtil.sign(email, currentTimeMillis);
+
+            //添加写cookie的逻辑，cookie的有效期是关闭浏览器就失效
+            CookieUtils.setCookie(request, response, Constant.ZEUS_TOKEN, token);
+            CookieUtils.setCookie(request, response, Constant.VISITOR_FLAG, "true");
+            CookieUtils.setCookie(request, response, Constant.VISITOR_UID, userDtoTemp.getUid());
+
+            //保存用户之前，把用户对象中的密码清空。
+            userDtoTemp.setPassword(null);
+            //把用户信息写入redis, 设置session的过期时间
+            JedisUtil.setJson(REDIS_USER_SESSION_KEY + ":" + token, JsonUtils.objectToJson(userDtoTemp), SSO_SESSION_EXPIRE);
+
+            response.setHeader("Authorization", token);
+            response.setHeader("Access-Control-Expose-Headers", "Authorization");
+            return ZeusResponseBean.ok("登录成功(Login Success.)");
+        } else {
+            return ZeusResponseBean.build(HttpStatus.BAD_REQUEST.value(), "帐号或密码错误(Account or Password Error.)");
+        }
     }
 }

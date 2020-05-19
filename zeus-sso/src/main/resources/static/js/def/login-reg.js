@@ -156,6 +156,56 @@ const LOGIN = {
     }
 };
 
+const VISITOR = {
+    login:function () {
+        var uid = getCookie("VISITOR_UID");
+
+        if (uid === null || uid === '') {
+            VISITOR.register();
+        }
+
+        var pwd = "123456";
+        //手动组装json对象
+        var configData ={
+            "uid":uid,
+            "password":pwd
+        }
+
+        $.ajax({
+            type: 'post',
+            url: URLS.sso_url + "/visitor/login",
+            data: JSON.stringify(configData),
+            dataType: 'json',
+            contentType: "application/json;charset=UTF-8"
+        }).success(function (data) {
+            if (data.status === 200) {
+                PAGE.goIndex()
+            } else {
+                alert(data.msg);
+            }
+        }).error(function () {
+            alert("Ajax异常!");
+        });
+    },
+    register:function () {
+        $.ajax({
+            type: 'post',
+            url: URLS.sso_url + "/visitor/register",
+            data: "",
+            dataType: 'json',
+            contentType: "application/json;charset=UTF-8"
+        }).success(function (data) {
+            if (data.status === 200) {
+                writeCookie(data.data);
+            } else {
+                alert(data.msg);
+            }
+        }).error(function () {
+            alert("Ajax异常!");
+        });
+    }
+};
+
 function getFormData($form) {
     var unindexed_array = $form.serializeArray();
     var indexed_array = {};
@@ -165,4 +215,24 @@ function getFormData($form) {
     });
 
     return indexed_array;
+}
+
+function getCookie(cname) {
+    const name = cname + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function writeCookie(uid){
+    document.cookie=encodeURI("VISITOR_UID="+uid);
 }

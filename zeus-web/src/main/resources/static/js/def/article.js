@@ -43,6 +43,11 @@ const ARTICLE = {
     initCommentData: function (data) {
         $("#comment-to").hide();
 
+        if (getCookie("VISITOR_FLAG") === "true") {
+            $("#comment-form").hide()
+            return
+        }
+
         const comments = data.comment;
         // 填写评论数量
         let replyCount = 0;
