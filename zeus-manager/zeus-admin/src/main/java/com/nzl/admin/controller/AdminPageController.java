@@ -17,7 +17,7 @@ public class AdminPageController {
      */
     @RequestMapping("/")
     public String showIndex() {
-        return "index";
+        return "article-list";
     }
     /**
      * 展示其他页面

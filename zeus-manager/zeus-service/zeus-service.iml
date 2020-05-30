@@ -33,6 +33,7 @@
     <orderEntry type="module" module-name="zeus-server" />
     <orderEntry type="module" module-name="zeus-server" />
     <orderEntry type="module" module-name="zeus-server" />
+    <orderEntry type="module" module-name="zeus-server" />
     <orderEntry type="module" module-name="zeus-mapper" />
     <orderEntry type="module" module-name="zeus-model" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9" level="project" />

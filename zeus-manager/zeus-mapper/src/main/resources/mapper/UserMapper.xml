@@ -70,4 +70,8 @@
         where username like '%' #{username} '%'
     </select>
 
+    <update id="updateUserHead" >
+        update user set head_portrait_url = #{head} where uid = #{uid}
+    </update>
+
 </mapper>

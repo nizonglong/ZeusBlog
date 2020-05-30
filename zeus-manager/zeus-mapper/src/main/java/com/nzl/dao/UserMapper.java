@@ -51,4 +51,6 @@ public interface UserMapper extends Mapper<UserDto> {
     String getUsernameByReplyId(Long replyId);
 
     List<User> searchUser(String username);
+
+    int updateUserHead(String uid, String head);
 }

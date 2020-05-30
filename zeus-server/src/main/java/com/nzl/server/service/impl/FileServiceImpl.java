@@ -62,6 +62,10 @@ public class FileServiceImpl implements FileService {
             return -1;
         }
 
+        if (filePath.contains("head")) {
+            return 1;
+        }
+
         // 文件存在则删除
         if (fileDir.delete()) {
             // 删除成功 返回 1

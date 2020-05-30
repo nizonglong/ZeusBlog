@@ -28,7 +28,6 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -40,7 +39,7 @@ import java.util.UUID;
 @Transactional(rollbackFor = Exception.class)
 @Service
 public class SsoUserServiceImpl implements SsoUserService {
-    public static final String defaultHead = "https://cdn.jsdelivr.net/gh/nizonglong/oss@master/2020-04-22%2019:17:08-uPic-head.png";
+    public static final String defaultHead = "head.png";
 
     @Resource
     private UserMapper userMapper;

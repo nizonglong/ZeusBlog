@@ -19,7 +19,8 @@ public class ServerWebAppConfigurer implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
-                .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
+                .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/")
+                .addResourceLocations("file:/Users/zonst/workspace/upload-img/");
     }
 
 //    @Override

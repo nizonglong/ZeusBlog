@@ -70,10 +70,13 @@ const COMMENT = {
                 url: URLS.admin_url + "/comment/delete?id=" + id + "&type=" + type,
                 contentType: "application/json",
                 success: function (data) {
-                    alert(data.data);
+                    if (data.status === 200) {
+                        alert("删除成功");
+                    }
                     window.location.reload();
                 },
                 error: function (data) {
+                    console.log(data)
                     alert(data.msg)
                 }
             });

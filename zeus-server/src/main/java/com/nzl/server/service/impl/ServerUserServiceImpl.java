@@ -42,9 +42,8 @@ public class ServerUserServiceImpl implements ServerUserService {
 
     @Override
     public ZeusResponseBean updateHeadPic(String fileName, String uid) {
-        UserDto userDto = new UserDto();
-        userDto.setHeadPortraitUrl(fileName);
-        userMapper.updateByPrimaryKey(userDto);
+
+        userMapper.updateUserHead(uid, fileName);
         return ZeusResponseBean.ok("头像更新成功");
     }
 
