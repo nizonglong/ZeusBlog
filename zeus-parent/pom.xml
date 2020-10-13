@@ -65,7 +65,7 @@
         <mapper.version>1.2.3</mapper.version>
 
         <!-- 测试相关 -->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
 
         <!-- 缓存 -->
         <jedis.version>2.9.0</jedis.version>
