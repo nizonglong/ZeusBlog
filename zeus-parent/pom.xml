@@ -86,7 +86,7 @@
         <httpclient.version>4.5.9</httpclient.version>
         <joda-time.version>2.10.3</joda-time.version>
         <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <lombok.version>1.18.8</lombok.version>
 
