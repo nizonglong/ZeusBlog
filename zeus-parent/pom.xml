@@ -83,7 +83,7 @@
         <commons-net.version>3.6</commons-net.version>
 
         <!-- 工具 -->
-        <httpclient.version>4.5.9</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <joda-time.version>2.10.3</joda-time.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
