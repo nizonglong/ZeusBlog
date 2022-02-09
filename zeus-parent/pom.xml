@@ -102,7 +102,7 @@
         <javaee.api.version>8.0.1</javaee.api.version>
 
         <!-- 权限 -->
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.1</shiro.version>
         <!-- JWT -->
         <jwt.version>3.3.0</jwt.version>
 
