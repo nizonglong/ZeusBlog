@@ -80,7 +80,7 @@
 
         <!-- 网络 -->
         <servlet-api.version>4.0.1</servlet-api.version>
-        <commons-net.version>3.6</commons-net.version>
+        <commons-net.version>3.9.0</commons-net.version>
 
         <!-- 工具 -->
         <httpclient.version>4.5.9</httpclient.version>
