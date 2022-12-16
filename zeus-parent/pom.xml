@@ -51,7 +51,7 @@
         <java.version>1.8</java.version>
 
         <!-- spring -->
-        <spring.version>5.2.4.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <springboot.version>2.2.5.RELEASE</springboot.version>
 
         <!-- 数据库 -->
